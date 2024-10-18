@@ -1,0 +1,173 @@
+@media(max-width:1200px){
+	.container.fw{
+		padding: 0 15px;
+	}
+
+
+	header, header.sticky{
+		padding: 15px 0 !important;
+	}
+	a.showmenu{
+		display: block;
+	}
+	.headermenu{
+		display: none;
+	}
+	.headermenu nav{
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		background: rgba(0,0,0,0.95);
+		z-index: 6;
+		left: 0; top: 0;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+		overflow-y: auto;
+		padding:80px;
+	}
+	.headermenu nav ul{
+
+	}
+	.headermenu nav ul li{
+		float: left;
+		width: 100%;
+		padding: 0 0 0 0;
+		margin: 0 0 20px 0;
+	}
+	header.sticky .headermenu nav ul li a{
+		color: #fff;
+	}
+	.header-info{
+		padding: 0 0;
+		padding-left: 0;
+		margin-left: 0;
+		border-left:none;
+		border-top: 1px solid rgba(255,255,255,0.4);
+		margin-top: 15px;
+		float: left;
+		width: 100%;
+		padding-top: 15px;
+	}
+	.header-right{
+		float: left;
+		width: 100%;
+	}
+
+
+
+
+	.services h2{
+		margin-bottom: 30px;
+	}
+	.service-items{
+		margin: 0 -20px;
+	}
+	.service-items .item{
+		flex-basis: 33.33%;
+		padding: 0 20px;
+		margin-bottom: 40px;
+	}
+	.service-items .item .itemcontent h4{
+		padding-left: 40px;
+	}
+
+
+
+	.reviews h2{
+		margin-bottom: 30px;
+	}
+
+
+
+	.contact h2{
+		margin-bottom: 30px;
+	}
+	.contactform form input{
+		padding-left: 20px;
+	}
+	.contactform form textarea{
+		padding: 20px;
+		margin-top: 20px;
+	}
+	.contactform form button{
+		height: 60px;
+		padding:0 40px;
+		margin-top: 20px;
+	}
+
+
+
+
+	footer{
+		
+	}
+	footer .copyright{
+		float: left;
+		width: 100%;
+	}
+	footer .contactinfo{
+		float: left;
+		width: 100%;
+	}
+}
+
+
+
+
+
+
+@media(max-width:800px){
+	.service-items .item{
+		flex-basis:50%;
+		margin-bottom: 40px;
+	}
+	.service-items .item.full{
+		flex-basis: 50%;
+	}
+	.service-items .item .itemcontent img{
+		aspect-ratio: 16/11;
+	}
+	.testimonials-list .item img{
+		width: 140px;
+		height: 140px;
+		margin-right: 20px;
+	}
+}
+
+
+
+
+
+
+@media(max-width:560px){
+	.service-items{
+		margin: 0 -15px;
+	}
+	.service-items .item{
+		padding: 0 15px;
+		flex-basis: 100%;
+	}
+	.service-items .item.full{
+		flex-basis: 100%;
+	}
+	.service-items .item .itemcontent h4{
+		padding-left: 35px;
+	}
+	
+
+	.home-carwash .text{
+		flex-basis: 100%;
+		margin-bottom: 30px;
+	}
+	.home-carwash .visual{
+		flex-basis: 100%;
+	}
+
+	.testimonials-list .item img{
+		width: 100px;
+		height: 100px;
+		margin-right: 20px;
+	}
+}
