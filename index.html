@@ -1,367 +1,266 @@
 <!DOCTYPE html>
 <html lang="en">
 
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>HyperWash: Car Wash Website Template</title>
-		<link rel="icon" type="image/png" href="images/favicon.png">
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-		<link rel="stylesheet" href="css/aos.css">
-		<link rel="stylesheet" href="fonts/fa/css/all.css">
-		<link rel="stylesheet" href="style-global.css">
-		<link rel="stylesheet" href="style.css">
-		<link rel="stylesheet" href="style-responsive.css">
-		<script src="js/jquery.js"></script>
-		<script src="form/form.js"></script>
-	</head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HyperWash: Car Wash Website Template</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="fonts/fa/css/all.css">
+    <link rel="stylesheet" href="style-global.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style-responsive.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="form/form.js"></script>
+</head>
+
+<body id="home">
+    <header class="fixed left top w100 zindex10 ptb30 ts0-6">
+        <div class="container fw dflex fww jcsb aic">
+            <a href="#" class="logo">
+                <img src="images/logo.png" alt="" />
+            </a>
+
+            <div class="header-right dflex fww jcsb aic">
+                <div class="headermenu-wrap">
+                    <a href="javascript:void()" class="showmenu rf"><i class="fa-solid fa-bars"></i></a>
+                    <a href="javascript:void()" class="hidemenu"><i class="fa-solid fa-times"></i></a>
+                    <div class="headermenu">
+                        <nav id="navigation">
+                            <ul>
+                                <li class="active"><a href="#home">Inicio</a></li>
+                                <li><a href="#services">Servicios</a></li>
+                                <li><a href="#reviews">Promociones</a></li>
+                                <li><a href="#contact">Contacto</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+                <div class="header-info dflex fww jcsb aic">
+                    <a href="#" class="call"><i class="fa-solid fa-phone"></i> 11-3811-0074</a>
+                    <div class="social">
+                        <a href="https://www.instagram.com/ypfboxesmoron/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=100054257360237&locale=es_LA" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                    </div>
+                </div>
+                
+
+            </div>
+
+        </div>
+    </header>
+    <style>
+        .carousel-inner img {
+            max-width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+    </style>
+    
+    <!-- header -->
+
+    <section class="hero fl w100 pt200 pb100 pt150-mobile pb50-mobile" id="hero">
+        <div class="container fw">
+            <div class="text fl w100 mb100 mb30-mobile">
+                <h1>YPF BOXES Opessa Aca Morón.</h1>
+            </div>
+            <div class="visual fl w100">
+                <img src="images/carpic.jpg" alt="" class="basic ar16-8 fit r10 ar16-12-mobile" />
+            </div>
+        </div>
+    </section>
+    <!-- hero -->
+
+    <section class="services fl w100 pt70 pb0 pt40-mobile pb10-moble" id="services">
+        <div class="container fw">
+            <h2>Servicios</h2>
+            <div class="service-items dflex fww">
+                <div class="item">
+                    <div class="itemcontent">
+                        <img src="images/exterior-wash.jpg" alt="" class="basic fit ar16-12 r10">
+                        <h4>Servicio Premium</h4>
+                        <p>36 puntos de revisión (LUBRICANTES Y FILTROS, FLUIDOS DEL VEHÍCULO, PARTES MECÁNICAS, ELEMENTOS DE SEGURIDAD, DIAGNÓSTICO ELECTRÓNICO)</p>
+                        <h5>Valor: Materiales(Lubricantes, filtros, accesorios, otros) + $8500</h5>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="itemcontent">
+                        <img src="images/interior-wash.jpg" alt="" class="basic fit ar16-12 r10">
+                        <h4>Servicio Completo</h4>
+                        <p>27 puntos de revisión (LUBRICANTES Y FILTROS, FLUIDOS DEL VEHÍCULO, PARTES MECÁNICAS, ELEMENTOS DE SEGURIDAD)</p>
+                        <h5>Valor: Materiales(Lubricantes, filtros, accesorios, otros)</h5>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="itemcontent">
+                        <img src="images/all-wash.jpg" alt="" class="basic fit ar16-12 r10">
+                        <h4>Servicio Express</h4>
+                        <p>7 puntos de revisión (LUBRICANTES Y FILTROS, FLUIDOS DEL VEHÍCULO)</p>
+                        <h5>Valor: Materiales(Lubricantes, filtros)</h5>
+                    </div>
+                </div>
+
+                <div class="item full">
+                    <div class="itemcontent">
+                        <img src="images/car-repair.jpg" alt="" class="basic fit ar16-6 r10">
+                        <h4>Diagnóstico Electrónico(Escaner)</h4>
+                        <p>
+                            - Lectura de tensión de la Sonda Lambda<br>
+                            - Historial de Fallas<br>
+                            - Lectura Climatización<br>
+                            - Lectura de Inyección<br>
+                            - Lectura de Frenos ABS<br>
+                            - Lectura de Fallas Instrumental<br>
+                            - Lectura de Sensores y Actuadores<br>
+                            - Reseteo Service<br>
+                            - Airbag
+                        </p>
+                        <h5>Valor: $17000</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- services and pricing -->
+
+    <!-- Carrusel de imágenes -->
+    <div class="home-carwash fl w100 ptb100 bg-yellow ptb50-tablet" id="reviews">
+        <div class="container fw dflex fww jcsb">
+            <!-- Texto del carrusel -->
+            <div class="text">
+                <h2>Promociones</h2>
+                <h3>Solicitá turno en App YPF</h3>
+                <h4>Bartolomé Mitre 1666 </h4>
+            </div>
+
+            <!-- Carrusel de Bootstrap -->
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="./images/promo20.jpg" class="d-block w-100" alt="Car Wash Image 1">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="./images/promoescalonado.jpg" class="d-block w-100" alt="Car Wash Image 2">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="./images/promoaca.jpg" class="d-block w-100" alt="Car Wash Image 3">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="./images/premios-boxes-4000 (1).jpg" class="d-block w-100" alt="Car Wash Image 4">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- End of Carrusel -->
+
+    
+    <!-- reviews -->
+
+    <!-- Contact -->
+
+    <section class="contact fl w100 ptb100 ptb50-tablet" id="contact">
+        <div class="container fw">
+            <h2>Contacto</h2>
+            <div class="contact-options fl w100">
+                <div class="dflex fww jcc aic">
+                    <!-- Botón de WhatsApp -->
+                    <a href="#" id="whatsapp-link" target="_blank" class="btn-whatsapp r50">
+                        Comunícate por WhatsApp <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+        
+                    <!-- Botón para enlace adicional -->
+                    <a href="https://forms.office.com/r/cV0U8rwSB9" target="_blank" class="btn-other r50">
+                        Pedí tu presupuesto <i class="fa-solid fa-link"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        // Detectar si es un dispositivo móvil
+        function isMobile() {
+            return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        }
+    
+        // Definir el enlace de WhatsApp según el dispositivo
+        const whatsappLink = document.getElementById('whatsapp-link');
+        if (isMobile()) {
+            whatsappLink.href = 'https://wa.me/5491138110074'; // Abrir en la app de WhatsApp
+        } else {
+            whatsappLink.href = 'https://web.whatsapp.com/send?phone=5491138110074'; // Abrir en WhatsApp Web
+        }
+    </script>
+    
+    <style>
+        .contact-options {
+            text-align: center;
+        }
+        .btn-whatsapp, .btn-other {
+            display: inline-block;
+            background-color: #25d366; /* Color de WhatsApp */
+            color: white;
+            padding: 15px 30px;
+            margin: 10px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .btn-whatsapp:hover, .btn-other:hover {
+            background-color: #1ebe5b; /* Color más oscuro al pasar el ratón */
+        }
+        .btn-other {
+            background-color: #007bff; /* Color del segundo enlace */
+        }
+        .btn-other:hover {
+            background-color: #0069d9; /* Color más oscuro para el segundo botón */
+        }
+    </style>
+    
+    <footer class="fl w100 ptb50">
+        <div class="container fw">
+            <div class="copyright">Copyright &copy; <span id="year"></span> <a href="#">Inicio</a></div>
+            <div class="contactinfo">
+                Envíanos un email 
+                <a href="mailto:eessacamoron@ypf.com">
+                    <i class="fa-solid fa-envelope"></i> eessacamoron@ypf.com
+                </a>
+            </div>
+        </div>
+    </footer>
+    
+    
+
+   
+    <!-- footer -->
+
+    <script src="js/js-global.js"></script>
+</body>
 
-
-	<body id="home">
-		
-
-		<header class="fixed left top w100 zindex10 ptb30 ts0-6">
-			<div class="container fw dflex fww jcsb aic">
-				
-
-				<a href="#" class="logo">
-					<img src="images/logo.png" alt="" />
-				</a>
-
-
-				<div class="header-right dflex fww jcsb aic">
-
-					<div class="headermenu-wrap">
-						<a href="javascript:void()" class="showmenu rf"><i class="fa-solid fa-bars"></i></a>
-						<a href="javascript:void()" class="hidemenu"><i class="fa-solid fa-times"></i></a>
-						<div class="headermenu">
-							<nav id="navigation">
-								<ul>
-									<li class="active"><a href="#home">Inicio</a></li>
-									<li><a href="#services">Servicios</a></li>
-									<li><a href="#reviews">Promociones</a></li>
-									<li><a href="#contact">Contacto</a></li>
-								</ul>
-							</nav>
-						</div>
-					</div>
-
-					<div class="header-info dflex fww jcsb aic">
-						<a href="#" class="call"><i class="fa-solid fa-phone"></i> 1138110074</a>
-						<div class="social">
-							<a href="#"><i class="fa-brands fa-instagram"></i></a>
-							<a href="#"><i class="fa-brands fa-twitter"></i></a>
-							<a href="#"><i class="fa-brands fa-youtube"></i></a>
-						</div>
-					</div>
-
-				</div>
-
-
-			</div>
-		</header>
-		<!-- header -->
-
-
-
-
-
-
-		<section class="hero fl w100 pt200 pb100 pt150-mobile pb50-mobile" id="hero">
-			<div class="container fw">
-				
-				<div class="text fl w100 mb100 mb30-mobile">
-					<h1>
-						YPF BOXES Opessa Aca Morón.
-					</h1>
-				</div>
-
-				<div class="visual fl w100">
-					<img src="images/carpic.jpg" alt="" class="basic ar16-8 fit r10 ar16-12-mobile" />
-				</div>
-
-			</div>
-		</section>
-		<!--  hero -->
-
-
-
-
-
-
-
-		<section class="services fl w100 pt70 pb0 pt40-mobile pb10-moble" id="services">
-			<div class="container fw">
-				
-				<h2>Services & Pricing</h2>
-
-				<div class="service-items dflex fww">
-					<div class="item">
-						<div class="itemcontent">
-							<img src="images/exterior-wash.jpg" alt="" class="basic fit ar16-12 r10">
-							<h4>Exterior Wash</h4>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sit amet semper turpis, at mollis nisi. Sed dignissim vestibulum rutrum.
-							</p>
-							<h5>Price: $15 (Starts)</h5>
-						</div>
-					</div>
-
-
-					<div class="item">
-						<div class="itemcontent">
-							<img src="images/interior-wash.jpg" alt="" class="basic fit ar16-12 r10">
-							<h4>Interior Cleaning</h4>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sit amet semper turpis, at mollis nisi. Sed dignissim vestibulum rutrum.
-							</p>
-							<h5>Price: $15 (Starts)</h5>
-						</div>
-					</div>
-
-
-
-					<div class="item">
-						<div class="itemcontent">
-							<img src="images/all-wash.jpg" alt="" class="basic fit ar16-12 r10">
-							<h4>Exterior + Interior</h4>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sit amet semper turpis, at mollis nisi. Sed dignissim vestibulum rutrum.
-							</p>
-							<h5>Price: $25 (Starts)</h5>
-						</div>
-					</div>
-
-
-
-					<div class="item full">
-						<div class="itemcontent">
-							<img src="images/car-repair.jpg" alt="" class="basic fit ar16-6 r10">
-							<h4>Car Service & Repair</h4>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sit amet semper turpis, at mollis nisi. Sed dignissim vestibulum rutrum.
-							</p>
-							<h5>Price: $25 (Starts)</h5>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</section>
-		<!-- services and pricing -->
-
-
-
-
-
-
-
-
-		<div class="home-carwash fl w100 ptb100 bg-yellow ptb50-tablet">
-			<div class="container fw dflex fww jcsb">
-				
-
-				<div class="text">
-					<h2>Home Car Wash</h2>
-					<h3>We will wash and clean your car at your home or garage.</h3>
-					<h4>From $99</h4>
-				</div>
-
-
-				<div class="visual">
-					<img src="images/home-carwash.jpg" alt="" class="basic fit ar16-12 r10">
-				</div>
-
-
-			</div>
-		</div>
-		<!-- home car wash -->
-
-
-
-
-
-
-		<section class="reviews fl w100 pt60 pb20 pt20-mobile pb10-mobile" id="reviews">
-			<div class="container fw">
-				
-				<h2>Customer Reviews</h2>
-
-				<div class="testimonials-list fl w100">
-					
-					<div class="item dflex">
-						<img src="images/human-1.jpg" alt="" class="ar1-1 rf fit" >
-						<div class="text">
-							<h3>Totally Recommended!</h3>
-							<h6>
-								<span class="fa-solid fa-star"></span>
-								<span class="fa-solid fa-star"></span>
-								<span class="fa-solid fa-star"></span>
-								<span class="fa-solid fa-star"></span>
-								<span class="fa-solid fa-star-half"></span>
-							</h6>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sit amet semper turpis, at mollis nisi. Sed dignissim vestibulum rutrum. Ut ac pharetra dolor. Suspendisse potenti. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sit amet semper turpis, at mollis nisi. Sed dignissim vestibulum rutrum. Ut ac pharetra dolor. Suspendisse potenti.
-							</p>
-							<h4>
-								John Doe, NYC.
-							</h4>
-						</div>
-					</div>
-					<!--1-->
-
-
-
-
-
-					<div class="item dflex">
-						<img src="images/human-2.jpg" alt="" class="ar1-1 rf fit" >
-						<div class="text">
-							<h3>Excellent Service!</h3>
-							<h6>
-								<span class="fa-solid fa-star"></span>
-								<span class="fa-solid fa-star"></span>
-								<span class="fa-solid fa-star"></span>
-								<span class="fa-solid fa-star"></span>
-								<span class="fa-solid fa-star-half"></span>
-							</h6>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sit amet semper turpis, at mollis nisi. Sed dignissim vestibulum rutrum. Ut ac pharetra dolor. Suspendisse potenti. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sit amet semper turpis, at mollis nisi. Sed dignissim vestibulum rutrum. Ut ac pharetra dolor. Suspendisse potenti.
-							</p>
-							<h4>
-								John Doe, NYC.
-							</h4>
-						</div>
-					</div>
-					<!--2-->
-
-
-
-
-					<div class="item dflex">
-						<img src="images/human-3.jpg" alt="" class="ar1-1 rf fit" >
-						<div class="text">
-							<h3>Best Car Cleaners!</h3>
-							<h6>
-								<span class="fa-solid fa-star"></span>
-								<span class="fa-solid fa-star"></span>
-								<span class="fa-solid fa-star"></span>
-								<span class="fa-solid fa-star"></span>
-								<span class="fa-solid fa-star"></span>
-							</h6>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sit amet semper turpis, at mollis nisi. Sed dignissim vestibulum rutrum. Ut ac pharetra dolor. Suspendisse potenti. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sit amet semper turpis, at mollis nisi. Sed dignissim vestibulum rutrum. Ut ac pharetra dolor. Suspendisse potenti.
-							</p>
-							<h4>
-								John Doe, NYC.
-							</h4>
-						</div>
-					</div>
-					<!--3-->
-
-
-
-
-
-
-					<div class="item dflex">
-						<img src="images/human-4.jpg" alt="" class="ar1-1 rf fit" >
-						<div class="text">
-							<h3>Totally Recommended!</h3>
-							<h6>
-								<span class="fa-solid fa-star"></span>
-								<span class="fa-solid fa-star"></span>
-								<span class="fa-solid fa-star"></span>
-								<span class="fa-solid fa-star"></span>
-								<span class="fa-solid fa-star-half"></span>
-							</h6>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sit amet semper turpis, at mollis nisi. Sed dignissim vestibulum rutrum. Ut ac pharetra dolor. Suspendisse potenti. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sit amet semper turpis, at mollis nisi. Sed dignissim vestibulum rutrum. Ut ac pharetra dolor. Suspendisse potenti.
-							</p>
-							<h4>
-								John Doe, NYC.
-							</h4>
-						</div>
-					</div>
-					<!--4-->
-
-
-
-
-
-					<div class="item dflex">
-						<img src="images/human-5.jpg" alt="" class="ar1-1 rf fit" >
-						<div class="text">
-							<h3>100% Satisfactory Service!</h3>
-							<h6>
-								<span class="fa-solid fa-star"></span>
-								<span class="fa-solid fa-star"></span>
-								<span class="fa-solid fa-star"></span>
-								<span class="fa-solid fa-star"></span>
-								<span class="fa-solid fa-star-half"></span>
-							</h6>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sit amet semper turpis, at mollis nisi. Sed dignissim vestibulum rutrum. Ut ac pharetra dolor. Suspendisse potenti. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sit amet semper turpis, at mollis nisi. Sed dignissim vestibulum rutrum. Ut ac pharetra dolor. Suspendisse potenti.
-							</p>
-							<h4>
-								John Doe, NYC.
-							</h4>
-						</div>
-					</div>
-					<!--5-->
-
-
-				</div>
-				<!--review-items-->
-
-			</div>
-		</section>
-		<!-- reviews -->
-
-
-
-
-
-		<section class="contact fl w100 ptb100 ptb50-tablet" id="contact">
-			<div class="container fw">
-				
-				<h2>Contact</h2>
-
-				<div class="contactform fl w100">
-					<form id="contactform" method="post" action="form/form.php" class="fl w100">
-						<input type="text" name="name" placeholder="Name*" class="name r5" required>
-						<input type="email" name="email" placeholder="Email Address*" class="email r5" required>
-						<textarea name="message" placeholder="Message" class="message r5"></textarea>
-						<button type="submit" id="submit" name="submit" class="r50">Submit <span class="fa-solid fa-angle-right"></span></button>
-					</form>
-				</div>
-
-			</div>
-		</section>
-		<!-- Contact -->
-
-
-
-
-
-		<footer class="fl w100 ptb50">
-			<div class="container fw">
-				
-				<div class="copyright">Copyright &copy; <span id="year"></span> <a href="#">HyperWash</a></div>
-
-				<div class="contactinfo">
-					Get In Touch &nbsp; / &nbsp; <a href="#">info@websitename.com</a>
-				</div>
-
-			</div>
-		</footer>
-		<!-- footer -->
-
-	
-		
-		<script src="js/js-global.js"></script>
-	</body>
 </html>
-<!-- Template By LayoutFlow (https://layoutflow.com/) -->
