@@ -44,6 +44,7 @@
 		height: auto;
 	}
 	
+	
 
 	.headermenu-wrap{
 		float: right;
@@ -126,7 +127,8 @@
 
 
 	.hero{
-		background:linear-gradient(to bottom right, #1f232e, red);
+		background: white;
+		background:linear-gradient(to bottom right, #1f232e, white);
 		z-index: 1;
 	}
 	.hero .text{
@@ -379,3 +381,7 @@
 		text-decoration: none;
 		border-bottom: 1px solid var(--red);
 	}
+
+
+	
+	
