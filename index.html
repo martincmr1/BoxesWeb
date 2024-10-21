@@ -38,6 +38,7 @@
                                 <li class="active"><a href="#home">Inicio</a></li>
                                 <li><a href="#services">Servicios</a></li>
                                 <li><a href="#reviews">Promociones</a></li>
+                                <li><a href="#how-to-arrive">Cómo llegar</a></li>
                                 <li><a href="#contact">Contacto</a></li>
                             </ul>
                         </nav>
@@ -51,8 +52,6 @@
                         <a href="https://www.facebook.com/profile.php?id=100054257360237&locale=es_LA" target="_blank"><i class="fa-brands fa-facebook"></i></a>
                     </div>
                 </div>
-                
-
             </div>
 
         </div>
@@ -135,7 +134,7 @@
     <!-- services and pricing -->
 
     <!-- Carrusel de imágenes -->
-    <div class="home-carwash fl w100 ptb100 bg-yellow ptb50-tablet" id="reviews">
+    <div class="home-carwash fl w100 ptb100 bg-white ptb50-tablet" id="reviews">
         <div class="container fw dflex fww jcsb">
             <!-- Texto del carrusel -->
             <div class="text">
@@ -181,6 +180,41 @@
 
     
     <!-- reviews -->
+
+    <!-- Nueva sección "Cómo llegar" -->
+    <section class="how-to-arrive fl w100 pt70 pb70 pt40-mobile pb40-mobile" id="how-to-arrive">
+        <div class="container fw">
+            <h2>Cómo llegar</h2>
+            <p>Bartolomé Mitre 1666, Morón, Buenos Aires, Argentina</p>
+            <div class="map-container">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3282.384011454423!2d-58.61779738496041!3d-34.65367996748559!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcc7e159d3305b%3A0x785ab7a59759b28d!2sBartolom%C3%A9%20Mitre%201666%2C%20B1708FDV%20Mor%C3%B3n%2C%20Provincia%20de%20Buenos%20Aires%2C%20Argentina!5e0!3m2!1ses!2ses!4v1697791225173!5m2!1ses!2ses"
+                    width="100%"
+                    height="450"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .map-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* Mantiene la proporción 16:9 */
+        }
+
+        .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 
     <!-- Contact -->
 
@@ -256,10 +290,8 @@
         </div>
     </footer>
     
-    
-
-   
     <!-- footer -->
+     
 
     <script src="js/js-global.js"></script>
 </body>
