@@ -2607,3 +2607,31 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'DIN', sans-serif;
 }
 
+/* Estilos para el contenedor del formulario */
+.form-container {
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+    .form-container {
+        padding: 15px;
+    }
+
+    .form-container h3 {
+        font-size: 20px;
+    }
+
+    .form-section h2 {
+        font-size: 28px;
+    }
+
+    iframe {
+        height: 500px; /* Ajuste del tamaño del iframe para móviles */
+    }
+}
