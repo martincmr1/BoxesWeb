@@ -382,6 +382,29 @@
 		border-bottom: 1px solid var(--red);
 	}
 
-
+	@font-face {
+		font-family: 'DIN';
+		src: url('fonts/DIN-Regular.woff2') format('woff2'),
+			 url('fonts/DIN-Regular.woff') format('woff');
+		font-weight: normal;
+		font-style: normal;
+	}
+	
+	@font-face {
+		font-family: 'DIN';
+		src: url('fonts/DIN-Bold.woff2') format('woff2'),
+			 url('fonts/DIN-Bold.woff') format('woff');
+		font-weight: bold;
+		font-style: normal;
+	}
+	
+	@font-face {
+		font-family: 'DIN';
+		src: url('fonts/DIN-Black.woff2') format('woff2'),
+			 url('fonts/DIN-Black.woff') format('woff');
+		font-weight: 900;
+		font-style: normal;
+	}
+	
 	
 	

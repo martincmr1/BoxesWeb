@@ -2587,3 +2587,23 @@
 	.fitalic-mobile{font-style: italic !important;}
 	.foblique-mobile{font-style: oblique !important;}
 }
+
+
+body, html {
+    font-family: 'DIN', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'DIN', sans-serif;
+}
+
+.headermenu nav ul li a {
+    font-family: 'DIN', sans-serif;
+}
+
+.service-items .itemcontent h4, 
+.service-items .itemcontent p,
+.service-items .itemcontent h5 {
+    font-family: 'DIN', sans-serif;
+}
+
