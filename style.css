@@ -445,3 +445,20 @@
         display: block;
     }
 }
+/* Ocultar iframe y mostrar botón en móviles */
+@media (max-width: 768px) {
+    .iframe-container {
+        display: none;
+    }
+
+    .btn-form-mobile {
+        display: block;
+        text-align: center;
+        padding: 15px 25px;
+        font-size: 18px;
+        color: white;
+        background-color: #007bff;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+}
