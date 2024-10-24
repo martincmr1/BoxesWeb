@@ -462,3 +462,26 @@
         text-decoration: none;
     }
 }
+/* Estilos generales del botón */
+.btn-form-mobile {
+    text-align: center;
+    padding: 15px 25px;
+    font-size: 18px;
+    color: white;
+    background-color: #007bff;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+/* Mostrar el botón y ocultar el iframe en móviles */
+@media (max-width: 768px) {
+    .iframe-container {
+        display: none;
+    }
+
+    .btn-form-mobile {
+        display: block;
+        margin: 20px auto;
+        width: fit-content;
+    }
+}
