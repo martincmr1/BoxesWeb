@@ -435,3 +435,13 @@
         height: 500px; /* Ajuste del tamaño del iframe para móviles */
     }
 }
+/* Ocultar iframe y mostrar botón en móviles */
+@media (max-width: 768px) {
+    .iframe-container {
+        display: none;
+    }
+
+    .btn-form-mobile {
+        display: block;
+    }
+}
