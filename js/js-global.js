@@ -169,3 +169,31 @@ if (isMobile()) {
 } else {
     whatsappLink.href = 'https://web.whatsapp.com/send?phone=5491138110074'; // Abrir en WhatsApp Web
 }
+// Supongamos que los productos están definidos de esta forma
+
+// Función para obtener el precio de un producto por código
+function obtenerPrecioPorCodigo(codigo) {
+    const producto = productos.find(p => p.codigo === codigo);
+    return producto ? producto.precio : "Precio no disponible";
+}
+
+// Función para inyectar precios en el HTML
+function inyectarPreciosEnHTML() {
+    // Obtener los elementos del DOM
+    const precio12167Div = document.getElementById('precio12167');
+    const precio12168Div = document.getElementById('precio12168');
+
+    // Verificar si los elementos existen antes de intentar inyectar los valores
+    if (precio12167Div) {
+        const precio12167 = obtenerPrecioPorCodigo(12167);
+        precio12167Div.innerHTML = `Precio del código 12167: $${precio12167}`;
+    }
+
+    if (precio12168Div) {
+        const precio12168 = obtenerPrecioPorCodigo(12168);
+        precio12168Div.innerHTML = `Precio del código 12168: $${precio12168}`;
+    }
+}
+
+// Llamar a la función para inyectar los precios al cargar la página
+window.onload = inyectarPreciosEnHTML;

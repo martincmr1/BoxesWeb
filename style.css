@@ -47,8 +47,7 @@
 		float: right;
 		position: relative;
 	}
-	.headermenu{}
-	.headermenu nav{}
+	
 	.headermenu nav ul{
 		float: left;
 	}
@@ -128,8 +127,7 @@
 		background:linear-gradient(to bottom right, white, white);
 		z-index: 1;
 	}
-	.hero .text{
-	}
+	
 	.hero .text h1{
 		color: #fff;
 		font-size: clamp(40px, 10rem, 160px);
@@ -140,9 +138,7 @@
 
 
 
-	.services{
-
-	}
+	
 	.services h2{
 		color: #000;
 		font-size: clamp(40px, 9rem, 140px);
@@ -178,21 +174,22 @@
 		padding-left: 55px;
 	}
 	.service-items .item .itemcontent h4:before {
-	    position: absolute;
-	    left: 0;
-	    top: 0;
-	    font-family: 'Font Awesome 6 Free';
-	    content:'\f105';
-	    color:#fff;
-	    width: clamp(24px, 4vw, 42px); height: clamp(24px, 4vw, 42px);
-	    background: var(--red);
-	    border-radius:54px;
-	    -webkit-border-radius:54px;
-	    display: flex;
-	    flex-wrap: wrap;
-	    align-items: center;
-	    justify-content: center;
+		position: absolute;
+		left: 0;
+		top: 0;
+		font-family: 'Font Awesome 6 Free'; /* Asegúrate de que este nombre sea correcto según la versión de Font Awesome */
+		/*content: '\f0ad'; /* Este código corresponde a una llave inglesa */
+		/*content: '\f0ad'; /* Código Unicode para la llave inglesa */
+		color: #fff;
+		width: clamp(24px, 4vw, 42px);
+		height: clamp(24px, 4vw, 42px);
+		background: var(--red);
+		border-radius: 54px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
+	
 	.service-items .item .itemcontent p{
 		color: #000;
 		font-size: clamp(13px, 2rem, 24px);
@@ -216,9 +213,7 @@
 
 
 
-	.home-carwash{
-
-	}
+	
 	.home-carwash .text{
 		flex-basis: 45%;
 	}
@@ -305,9 +300,7 @@
 		margin-bottom: 70px;
 		text-transform: uppercase;
 	}
-	.contactform form{
-
-	}
+	
 	.contactform form input{
 		float: left;
 		width: 48%;
@@ -607,4 +600,12 @@
 
 #presupuestos{
 	background-color: white;
+}
+
+.icono-rojo {
+	color: red; /* Color rojo */
+}
+
+.margen-derecha {
+    margin-right: 8px; /* Ajusta el valor según el espacio que desees */
 }
