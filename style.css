@@ -1,4 +1,6 @@
 	:root{
+	--font-size-default: 1.2rem;
+	--spacing-default: 15px;
 		--blue1:#0617f7;
 		--blue2:#a0cdcb;
 		--red:#f02727;
@@ -6,11 +8,6 @@
 		--gray:#1f232e;
 	}
 
-	body, html{
-	}
-	body{
-		
-	}
 
 	body.disable{
 		overflow-y: hidden;
@@ -128,7 +125,7 @@
 
 	.hero{
 		background: white;
-		background:linear-gradient(to bottom right, #1f232e, white);
+		background:linear-gradient(to bottom right, white, white);
 		z-index: 1;
 	}
 	.hero .text{
@@ -484,4 +481,130 @@
         margin: 20px auto;
         width: fit-content;
     }
+}
+
+/* Consolidated button classes */
+.btn {
+  text-align: center;
+  padding: var(--spacing-default) 25px;
+  font-size: var(--font-size-default);
+  color: white;
+  background-color: var(--blue1);
+  border-radius: 5px;
+  text-decoration: none;
+  display: block;
+  margin: 20px auto;
+  width: fit-content;
+}
+
+.btn-primary {
+  background-color: var(--blue1);
+}
+
+.btn-secondary {
+  background-color: var(--red);
+}
+
+/* Utility margin and padding classes */
+.mt-10 { margin-top: 10px; }
+.mb-10 { margin-bottom: 10px; }
+.pt-10 { padding-top: 10px; }
+.pb-10 { padding-bottom: 10px; }
+
+#services{
+	background-color: white;
+}
+
+.products {
+	background-color: #f8f9fa;
+	padding: 70px 0;
+}
+
+.product-items {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+	justify-content: center;
+}
+
+.product-items .item {
+	width: 250px;
+	background: #fff;
+	border: 1px solid #ddd;
+	border-radius: 10px;
+	overflow: hidden;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	text-align: center;
+}
+
+.product-items .item img.product-image {
+	width: 100%;
+	height: auto;
+	border-bottom: 1px solid #ddd;
+}
+
+.product-items .item h4 {
+	margin: 15px 0 5px;
+	font-size: 18px;
+}
+
+.product-items .item p {
+	margin: 5px 15px;
+}
+
+.product-items .item h5 {
+	margin: 15px 0;
+	font-size: 18px;
+	color: #28a745;
+}
+.carousel-inner img {
+	max-width: 100%;
+	max-height: 400px;
+	object-fit: cover;
+	border-radius: 10px;
+}
+
+
+.map-container {
+	position: relative;
+	width: 100%;
+	height: 0;
+	padding-bottom: 56.25%; /* Mantiene la proporción 16:9 */
+}
+
+.map-container iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+
+.contact-options {
+	text-align: center;
+}
+.btn-whatsapp, .btn-other {
+	display: inline-block;
+	background-color: #25d366; /* Color de WhatsApp */
+	color: white;
+	padding: 15px 30px;
+	margin: 10px;
+	border-radius: 50px;
+	text-decoration: none;
+	font-size: 16px;
+	transition: background-color 0.3s ease;
+}
+.btn-whatsapp:hover, .btn-other:hover {
+	background-color: #1ebe5b; /* Color más oscuro al pasar el ratón */
+}
+.btn-other {
+	background-color: #007bff; /* Color del segundo enlace */
+}
+.btn-other:hover {
+	background-color: #0069d9; /* Color más oscuro para el segundo botón */
+}
+
+#presupuestos{
+	background-color: white;
 }

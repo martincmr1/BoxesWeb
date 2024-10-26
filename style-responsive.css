@@ -28,9 +28,7 @@
 		overflow-y: auto;
 		padding:80px;
 	}
-	.headermenu nav ul{
-
-	}
+	
 	.headermenu nav ul li{
 		float: left;
 		width: 100%;
@@ -101,9 +99,7 @@
 
 
 
-	footer{
-		
-	}
+	
 	footer .copyright{
 		float: left;
 		width: 100%;
@@ -173,81 +169,7 @@
 	}
 }
 
-/* Estilos para el contenedor del formulario */
-.form-container {
-    width: 100%;
-    max-width: 800px;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
 
-/* Ajustes para pantallas pequeñas */
-@media (max-width: 768px) {
-    .form-container {
-        padding: 15px;
-    }
 
-    .form-container h3 {
-        font-size: 20px;
-    }
 
-    .form-section h2 {
-        font-size: 28px;
-    }
 
-    iframe {
-        height: 500px; /* Ajuste del tamaño del iframe para móviles */
-    }
-}
-/* Ocultar iframe y mostrar botón en móviles */
-@media (max-width: 768px) {
-    .iframe-container {
-        display: none;
-    }
-
-    .btn-form-mobile {
-        display: block;
-    }
-}
-/* Ocultar iframe y mostrar botón en móviles */
-@media (max-width: 768px) {
-    .iframe-container {
-        display: none;
-    }
-
-    .btn-form-mobile {
-        display: block;
-        text-align: center;
-        padding: 15px 25px;
-        font-size: 18px;
-        color: white;
-        background-color: #007bff;
-        border-radius: 5px;
-        text-decoration: none;
-    }
-}
-/* Estilos generales del botón */
-.btn-form-mobile {
-    text-align: center;
-    padding: 15px 25px;
-    font-size: 18px;
-    color: white;
-    background-color: #007bff;
-    border-radius: 5px;
-    text-decoration: none;
-}
-
-/* Mostrar el botón y ocultar el iframe en móviles */
-@media (max-width: 768px) {
-    .iframe-container {
-        display: none;
-    }
-
-    .btn-form-mobile {
-        display: block;
-        margin: 20px auto;
-        width: fit-content;
-    }
-}

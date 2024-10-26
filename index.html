@@ -58,14 +58,6 @@
 
         </div>
     </header>
-    <style>
-        .carousel-inner img {
-            max-width: 100%;
-            max-height: 400px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-    </style>
     
     <!-- header -->
 
@@ -185,130 +177,7 @@
         </div>
     </section>
     
-    <script>
-        let productos = [];
-        const codigosPermitidos = [ 173895,174495,  174195, 176395, 176195, 172795, 171895,172895,172995,170995,171795,176095,172695];
-
-        // Asociación manual de URLs de imágenes por código de producto
-        const imagenesProductos = {
-            
-
-            
-
-
-
-
-
-
-
-
-
-
    
-            173895:"https://elaion.com.ar/assets/images/productos/Elaion_AURO_D2530.webp",
-            174495: "https://elaion.com.ar/assets/images/productos/Elaion_MI2050.webp",
-            174195: "https://elaion.com.ar/assets/images/productos/Elaion_MI1540.webp",
-           
-            176395: "https://elaion.com.ar/assets/images/productos/Elaion_TS1040.webp",
-            
-            176195: "https://elaion.com.ar/assets/images/productos/Elaion_FS540.webp",
-            171895: "https://elaion.com.ar/assets/images/productos/Elaion_AURO_FE530.webp",
-            
-            172795: "https://elaion.com.ar/assets/images/productos/Elaion_AURO_PLUS540.webp",
-           172895:"https://elaion.com.ar/assets/images/productos/Elaion_AURO_FR530.webp",
-           172995:"https://elaion.com.ar/assets/images/productos/Elaion_AURO_FR540.webp",
-           170995:"https://elaion.com.ar/assets/images/productos/Elaion_AURO_HYBRID_D1020.webp",
-           171795:"https://elaion.com.ar/assets/images/productos/Elaion_AURO_HYBRID_D1530.webp",
-           176095:"https://elaion.com.ar/assets/images/productos/Elaion_FS530.webp",
-           172695:"https://elaion.com.ar/assets/images/productos/Elaion_AURO_HYBRID_DPF530.webp",
-            // Puedes agregar más códigos y URLs según tus productos
-        };
-
-        function verProductosapi() {
-            fetch("https://api-boxes-default-rtdb.firebaseio.com/productos.json")
-                .then((response) => response.json())
-                .then((jsonResponse) => {
-                    productos = jsonResponse;
-                    mostrarProductos();
-                });
-        }
-
-        function mostrarProductos() {
-            const productList = document.getElementById('product-list');
-            productList.innerHTML = ''; // Limpiar el contenedor
-
-            // Filtrar productos por códigos permitidos
-            const productosFiltrados = productos.filter(producto => codigosPermitidos.includes(parseInt(producto.codigo)));
-
-            // Iterar sobre los productos filtrados y crear elementos HTML para cada uno
-            productosFiltrados.forEach((producto) => {
-                const productItem = document.createElement('div');
-                productItem.className = 'item';
-
-                // Obtener la URL de la imagen correspondiente al código del producto
-                const urlImagen = imagenesProductos[producto.codigo] || "https://mi-sitio.com/imagenes/default.jpg"; // Imagen por defecto si no hay URL
-
-                productItem.innerHTML = `
-                    <div class="itemcontent">
-                        <img src="${urlImagen}" alt="Imagen de ${producto.descripcion}" class="product-image">
-                        <h4>Código: ${producto.codigo}</h4>
-                        <h4>${producto.descripcion}</h4>
-                        <h5>Precio: $${producto.precio}</h5>
-                    </div>
-                `;
-
-                productList.appendChild(productItem);
-            });
-        }
-
-        // Llamar a la función para cargar los productos al cargar la página
-        verProductosapi();
-    </script>
-    
-    <style>
-        .products {
-            background-color: #f8f9fa;
-            padding: 70px 0;
-        }
-
-        .product-items {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
-
-        .product-items .item {
-            width: 250px;
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        .product-items .item img.product-image {
-            width: 100%;
-            height: auto;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .product-items .item h4 {
-            margin: 15px 0 5px;
-            font-size: 18px;
-        }
-
-        .product-items .item p {
-            margin: 5px 15px;
-        }
-
-        .product-items .item h5 {
-            margin: 15px 0;
-            font-size: 18px;
-            color: #28a745;
-        }
-    </style>
 
     <!-- reviews -->
 
@@ -330,48 +199,21 @@
         </div>
     </section>
 
-    <style>
-        .map-container {
-            position: relative;
-            width: 100%;
-            height: 0;
-            padding-bottom: 56.25%; /* Mantiene la proporción 16:9 */
-        }
+   
 
-        .map-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-    </style>
-
-<section class="form-section" id="presupuesto" style="background: linear-gradient(135deg, #e0f7fa, #b2ebf2); padding: 60px 20px;">
-    <div class="container">
-        <h2 style="text-align: center; font-size: 32px; margin-bottom: 20px;">Pedí tu presupuesto</h2>
-        <div class="form-container" style="max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-            <!-- Título para el formulario -->
-            <h3 style="text-align: center; font-size: 24px; margin-bottom: 15px; color: #333;">Complete el formulario a continuación</h3>
-
-            <!-- Botón para Móviles -->
-            <a href="https://forms.office.com/pages/responsepage.aspx?id=wxiAA2xhRkutm6qQB_cBtTcN4U2aKFJJobd1dZXmdN9URThaRTQ5VDNMV0lTRlRUOFhCNUZTS0U4Sy4u" 
-               class="btn-form-mobile" 
-               target="_blank" 
-               style="display: none;">
-               Ir al Formulario
-            </a>
-
-            <!-- Formulario de Office embebido para pantallas grandes -->
-            <div class="iframe-container" style="width: 100%; height: auto;">
-                <iframe 
-                    src="https://forms.office.com/pages/responsepage.aspx?id=wxiAA2xhRkutm6qQB_cBtTcN4U2aKFJJobd1dZXmdN9URThaRTQ5VDNMV0lTRlRUOFhCNUZTS0U4Sy4u" 
-                    style="width: 100%; height: 600px; border: none;"> 
-                </iframe>
+    <section class="form-section fl w100 ptb100" id="presupuesto">
+        <h1 style="text-align: center; font-size: 50px; margin-bottom: 20px;">Presupuestos</h1>
+        <div class="container fw">
+            <div style="text-align: center;">
+                <a href="https://forms.office.com/pages/responsepage.aspx?id=wxiAA2xhRkutm6qQB_cBtTcN4U2aKFJJobd1dZXmdN9URThaRTQ5VDNMV0lTRlRUOFhCNUZTS0U4Sy4u" 
+                   class="btn btn-primary" 
+                   style="font-size: 18px; padding: 12px 24px; background-color: #007bff; border: none; border-radius: 50px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                   Pedí tu presupuesto
+                </a>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+    
 
 
 
@@ -402,45 +244,9 @@
         </div>
     </section>
     
-    <script>
-        // Detectar si es un dispositivo móvil
-        function isMobile() {
-            return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-        }
-    
-        // Definir el enlace de WhatsApp según el dispositivo
-        const whatsappLink = document.getElementById('whatsapp-link');
-        if (isMobile()) {
-            whatsappLink.href = 'https://wa.me/5491138110074'; // Abrir en la app de WhatsApp
-        } else {
-            whatsappLink.href = 'https://web.whatsapp.com/send?phone=5491138110074'; // Abrir en WhatsApp Web
-        }
-    </script>
     
     <style>
-        .contact-options {
-            text-align: center;
-        }
-        .btn-whatsapp, .btn-other {
-            display: inline-block;
-            background-color: #25d366; /* Color de WhatsApp */
-            color: white;
-            padding: 15px 30px;
-            margin: 10px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
-        }
-        .btn-whatsapp:hover, .btn-other:hover {
-            background-color: #1ebe5b; /* Color más oscuro al pasar el ratón */
-        }
-        .btn-other {
-            background-color: #007bff; /* Color del segundo enlace */
-        }
-        .btn-other:hover {
-            background-color: #0069d9; /* Color más oscuro para el segundo botón */
-        }
+       
     </style>
     
     <footer class="fl w100 ptb50">
