@@ -172,4 +172,46 @@
 
 
 
+/* Estilo por defecto (para pantallas grandes) */
+.accordion-button {
+    font-size: 28px; /* Tamaño de fuente para títulos en pantallas grandes */
+}
+
+.accordion-icon {
+    font-size: 28px; /* Tamaño de ícono en pantallas grandes */
+}
+
+.accordion-content li {
+    font-size: 24px; /* Tamaño de fuente para contenido en pantallas grandes */
+}
+
+/* Media query para dispositivos móviles */
+@media (max-width: 768px) {
+    .accordion-button {
+        font-size: 20px; /* Tamaño de fuente reducido para dispositivos móviles */
+    }
+
+    .accordion-icon {
+        font-size: 20px; /* Tamaño de ícono reducido para dispositivos móviles */
+    }
+
+    .accordion-content li {
+        font-size: 18px; /* Tamaño de fuente reducido para contenido en dispositivos móviles */
+    }
+}
+
+/* Media query para pantallas muy pequeñas (por ejemplo, teléfonos en modo vertical) */
+@media (max-width: 480px) {
+    .accordion-button {
+        font-size: 18px; /* Tamaño de fuente más reducido para teléfonos pequeños */
+    }
+
+    .accordion-icon {
+        font-size: 18px; /* Tamaño de ícono más reducido para teléfonos pequeños */
+    }
+
+    .accordion-content li {
+        font-size: 16px; /* Tamaño de fuente más reducido para contenido en teléfonos pequeños */
+    }
+}
 

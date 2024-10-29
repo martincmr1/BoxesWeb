@@ -169,3 +169,30 @@ if (isMobile()) {
 } else {
     whatsappLink.href = 'https://web.whatsapp.com/send?phone=5491138110074'; // Abrir en WhatsApp Web
 }
+
+
+const accordionButtons = document.querySelectorAll('.accordion-button');
+
+accordionButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const content = button.nextElementSibling;
+        const icon = button.querySelector('.accordion-icon');
+
+        // Cierra cualquier acordeón abierto
+        document.querySelectorAll('.accordion-content').forEach(otherContent => {
+            if (otherContent !== content) {
+                otherContent.style.maxHeight = null;
+                otherContent.previousElementSibling.querySelector('.accordion-icon').textContent = '+';
+            }
+        });
+
+        // Alternar el acordeón actual
+        if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+            icon.textContent = '+';
+        } else {
+            content.style.maxHeight = content.scrollHeight + 'px';
+            icon.textContent = '−';
+        }
+    });
+});
