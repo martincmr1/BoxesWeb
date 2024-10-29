@@ -225,38 +225,50 @@
     <section class="form-section fl w100 ptb100" id="presupuesto">
         <h1 style="text-align: center; font-size: 50px; margin-bottom: 20px;">Presupuestos</h1>
         <div class="container fw">
-            <div style="text-align: center;">
+            <div class="arrow"></div> <!-- Flecha añadida -->
+            <div style="text-align: center; position: relative;">
                 <a href="https://forms.office.com/pages/responsepage.aspx?id=wxiAA2xhRkutm6qQB_cBtTcN4U2aKFJJobd1dZXmdN9URThaRTQ5VDNMV0lTRlRUOFhCNUZTS0U4Sy4u" 
                    class="btn btn-primary" 
                    style="font-size: 18px; padding: 12px 24px; background-color: #007bff; border: none; border-radius: 50px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                    Pedí tu presupuesto
                 </a>
+               
             </div>
         </div>
     </section>
     
-    <!-- Contact -->
-    <section class="contact fl w100 ptb100 ptb50-tablet" id="contact">
-        <div class="container fw">
-            <h2>Contacto</h2>
-            <div class="contact-options fl w100">
-                <div class="dflex fww jcc aic">
-                    <a href="#" id="whatsapp-link" target="_blank" class="btn-whatsapp r50">
-                        Comunícate por WhatsApp <i class="fa-brands fa-whatsapp"></i>
-                    </a>
-                    <a href="mailto:eessacamoron@ypf.com" target="_blank" class="btn-other r50">
-                        e-mail <i class="fa-solid fa-envelope"></i>
-                    </a>
-                </div>
+    
+   <!-- Contact -->
+<section class="contact fl w100 ptb100 ptb50-tablet" id="contact">
+    <div class="container fw">
+        <h2>Contacto</h2>
+        <p class="contact-hours">Horario de atención: Lunes a Sábados de 06:00 a 22:00 hs</p> <!-- Línea añadida -->
+        <div class="contact-options fl w100">
+            <div class="dflex fww jcc aic">
+                <a href="#" id="whatsapp-link" target="_blank" class="btn-whatsapp r50">
+                    Comunícate por WhatsApp <i class="fa-brands fa-whatsapp"></i>
+                </a>
+                <a href="mailto:eessacamoron@ypf.com" target="_blank" class="btn-other r50">
+                    e-mail <i class="fa-solid fa-envelope"></i>
+                </a>
             </div>
         </div>
-    </section>
-    
-    <footer class="fl w100 ptb50">
-        <div class="container fw">
-            <div class="copyright">Copyright &copy; <span id="year"></span> <a href="#">Inicio</a></div>
+    </div>
+</section>
+
+<footer class="fl w100 ptb50">
+    <div class="container fw">
+        <div class="copyright">
+            Copyright &copy; <span id="year"></span>
+            &bull; <!-- Separador -->
+            <a href="#" aria-label="Ir al inicio" style="text-decoration: none;">
+                <i class="fa-solid fa-house"></i> <!-- Ícono de casa -->
+            </a>
         </div>
-    </footer>
+    </div> 
+</footer>
+ 
+    
     
     <script src="js/js-global.js"></script>
 </body>
