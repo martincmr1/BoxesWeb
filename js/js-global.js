@@ -1,9 +1,50 @@
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const fechaLimite = new Date("2025-02-15"); // 15 de enero a las 00:00
+    const fechaActual = new Date();
+
+    if (fechaActual >= fechaLimite) {
+        const primerItem = document.querySelector(".carousel-item.active");
+        if (primerItem) {
+            primerItem.remove(); // Elimina la imagen de la promoción expirada
+        }
+
+        // Ajustar la siguiente imagen como activa
+        const nuevoActivo = document.querySelector(".carousel-item");
+        if (nuevoActivo) {
+            nuevoActivo.classList.add("active");
+        }
+
+        // Ajustar los indicadores del carrusel
+        const primerIndicador = document.querySelector(".carousel-indicators .active");
+        if (primerIndicador) {
+            primerIndicador.remove();
+        }
+        
+        const nuevosBotones = document.querySelectorAll(".carousel-indicators button");
+        if (nuevosBotones.length > 0) {
+            nuevosBotones[0].classList.add("active");
+        }
+    }
+});
+
+
+
+
+
+
+
 // COPYRIGHT YEAR (AUTOMATIC)
 let getyear = new Date().getFullYear();
 let getyeardiv = document.getElementById('year');
 if (getyeardiv) {
     getyeardiv.innerHTML = getyear;
 }
+
+
+
+
 
 // HEADER FIXED
 function headerfixed() {
