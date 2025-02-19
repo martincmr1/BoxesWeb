@@ -2634,3 +2634,23 @@ header {
 #presupuesto{
 	background-color: white;
 }
+
+
+/* Contenedor del carrusel */
+.carousel-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 800px; /* Ajusta el tamaño máximo según necesidad */
+    margin: 0 auto; /* Centra el carrusel */
+}
+
+/* Ajuste de las imágenes dentro del carrusel */
+.carousel-item img {
+    width: 100%;
+    height: auto; /* Mantiene la proporción */
+    max-height: 400px; /* Ajusta esto según lo que necesites */
+    object-fit: contain; /* Evita cortes y deformaciones */
+}
+
