@@ -237,3 +237,33 @@ accordionButtons.forEach(button => {
         }
     });
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    fetch("https://apiboxeslauquen-default-rtdb.firebaseio.com/.json")
+        .then(response => response.json())
+        .then(data => {
+            const container = document.querySelector(".service-section .row");
+            container.innerHTML = ""; // Limpiar contenido previo
+
+            data.forEach(service => {
+                const card = document.createElement("div");
+                card.classList.add("col-md-4", "col-12");
+                card.innerHTML = `
+                    <div class="service-card">
+                        <span class="price-tag">${service.precio}</span>
+                        <img src="${service.imagen}" alt="${service.titulo}">
+                        <div class="service-card-body">
+                            <h3 class="service-title">${service.titulo}</h3>
+                            <ul class="service-details">
+                                ${service.detalles.map(item => `<li>${item}</li>`).join("")}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        })
+        .catch(error => console.error("Error cargando los servicios:", error));
+});
+
