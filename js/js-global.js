@@ -239,31 +239,204 @@ accordionButtons.forEach(button => {
 });
 
 
-document.addEventListener("DOMContentLoaded", () => {
-    fetch("https://apiboxeslauquen-default-rtdb.firebaseio.com/.json")
-        .then(response => response.json())
-        .then(data => {
-            const container = document.querySelector(".service-section .row");
-            container.innerHTML = ""; // Limpiar contenido previo
+/* js para lista de autos
 
-            data.forEach(service => {
-                const card = document.createElement("div");
-                card.classList.add("col-md-4", "col-12");
-                card.innerHTML = `
-                    <div class="service-card">
-                        <span class="price-tag">${service.precio}</span>
-                        <img src="${service.imagen}" alt="${service.titulo}">
-                        <div class="service-card-body">
-                            <h3 class="service-title">${service.titulo}</h3>
-                            <ul class="service-details">
-                                ${service.detalles.map(item => `<li>${item}</li>`).join("")}
-                            </ul>
-                        </div>
+document.addEventListener("DOMContentLoaded", () => {
+    // Cargar servicios y productos desde Firebase y localmente
+    Promise.all([
+        fetch("./services.json").then(res => res.json()),
+        fetch("https://api-boxes-default-rtdb.firebaseio.com/productos.json").then(res => res.json())
+    ])
+    .then(([servicios, productos]) => {
+        if (!servicios || !productos) {
+            console.error("No se recibieron datos correctos desde Firebase.");
+            return;
+        }
+
+        console.log("Servicios cargados:", servicios);
+        console.log("Productos cargados:", productos);
+
+        const container = document.querySelector(".service-section .row");
+        if (!container) {
+            console.error("No se encontró el contenedor en el HTML.");
+            return;
+        }
+
+        container.innerHTML = ""; // Limpiar contenido previo
+
+        // Crear un mapa de productos { codigo: precio } asegurándonos de que los precios sean números
+        const productosMap = {};
+        productos.forEach(producto => {
+            productosMap[producto.codigo] = Number(producto.precio) || 0; // Convertir a número y evitar NaN
+        });
+
+        // Iterar sobre cada servicio y calcular su precio total
+        servicios.forEach(service => {
+            let precioTotal = service.codigos.reduce((total, codigo) => {
+                return total + (productosMap[codigo] || 0); // Si no existe el código, suma 0
+            }, 0);
+
+            // Formatear el precio sin decimales
+            let precioFormateado = new Intl.NumberFormat("es-AR", {
+                style: "currency",
+                currency: "ARS",
+                minimumFractionDigits: 0, // Evita decimales
+                maximumFractionDigits: 0  // Evita decimales
+            }).format(precioTotal);
+
+            // Crear la tarjeta del servicio
+            const card = document.createElement("div");
+            card.classList.add("col-md-4", "col-12");
+            card.innerHTML = `
+                <div class="service-card">
+                    <span class="price-tag">${precioFormateado}</span>
+                    <img src="${service.imagen}" alt="${service.titulo}">
+                    <div class="service-card-body">
+                        <h3 class="service-title">${service.titulo}</h3>
+                        <ul class="service-details">
+                            ${service.detalles.map(item => `<li>${item}</li>`).join("")}
+                        </ul>
                     </div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    })
+    .catch(error => console.error("Error al obtener los datos desde Firebase:", error));
+});
+*/
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Cargar servicios y productos desde Firebase y localmente
+    Promise.all([
+        fetch("./services.json").then(res => res.json()),
+        fetch("https://api-boxes-default-rtdb.firebaseio.com/productos.json").then(res => res.json())
+    ])
+    .then(([servicios, productos]) => {
+        if (!servicios || !productos) {
+            console.error("No se recibieron datos correctos desde Firebase.");
+            return;
+        }
+
+        console.log("Servicios cargados:", servicios);
+        console.log("Productos cargados:", productos);
+
+        const container = document.querySelector(".service-section .row");
+        if (!container) {
+            console.error("No se encontró el contenedor en el HTML.");
+            return;
+        }
+
+        container.innerHTML = ""; // Limpiar contenido previo
+
+        // Crear un mapa de productos { codigo: { descripcion, precio } } asegurándonos de que los precios sean números
+        const productosMap = {};
+        productos.forEach(producto => {
+            productosMap[producto.codigo] = {
+                descripcion: producto.descripcion,
+                precio: Number(producto.precio) || 0 // Convertir precio a número y evitar NaN
+            };
+        });
+
+        // Iterar sobre cada servicio y calcular su precio total
+        servicios.forEach((service, index) => {
+            let precioTotal = service.codigos.reduce((total, codigo) => {
+                return total + (productosMap[codigo]?.precio || 0); // Si no existe el código, suma 0
+            }, 0);
+
+            // Formatear el precio sin decimales
+            let precioFormateado = new Intl.NumberFormat("es-AR", {
+                style: "currency",
+                currency: "ARS",
+                minimumFractionDigits: 0, // Evita decimales
+                maximumFractionDigits: 0  // Evita decimales
+            }).format(precioTotal);
+
+            // Crear la tarjeta del servicio con el botón "Detalles"
+            const card = document.createElement("div");
+            card.classList.add("col-md-4", "col-12");
+            card.innerHTML = `
+                <div class="service-card">
+                    <span class="price-tag">${precioFormateado}</span>
+                    <img src="${service.imagen}" alt="${service.titulo}">
+                    <div class="service-card-body">
+                        <h3 class="service-title">${service.titulo}</h3>
+                        <ul class="service-details">
+                            ${service.detalles.map(item => `<li>${item}</li>`).join("")}
+                        </ul>
+                        <button class="details-btn" data-index="${index}">Detalles</button>
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+
+        // Evento para mostrar detalles al hacer clic en "Detalles"
+        document.querySelectorAll(".details-btn").forEach(button => {
+            button.addEventListener("click", (event) => {
+                let index = event.target.getAttribute("data-index");
+                let service = servicios[index];
+
+                let detallesHTML = `
+                    <h3>${service.titulo}</h3>
+                    <ul>
+                        ${service.codigos.map(codigo => {
+                            let producto = productosMap[codigo];
+                            return producto ? `<li>${producto.descripcion}: <strong>${new Intl.NumberFormat("es-AR", { style: "currency", currency: "ARS", minimumFractionDigits: 0 }).format(producto.precio)}</strong></li>` : "";
+                        }).join("")}
+                    </ul>
                 `;
-                container.appendChild(card);
+
+                mostrarModal(detallesHTML);
             });
-        })
-        .catch(error => console.error("Error cargando los servicios:", error));
+        });
+    })
+    .catch(error => console.error("Error al obtener los datos desde Firebase:", error));
 });
 
+// Función para mostrar el modal con la información de los productos
+function mostrarModal(content) {
+    let modal = document.getElementById("modal-detalles");
+    let modalContent = document.getElementById("modal-content");
+
+    modalContent.innerHTML = content;
+    modal.style.display = "block";
+}
+
+// Cerrar el modal al hacer clic en la "X" o fuera del modal
+document.addEventListener("DOMContentLoaded", () => {
+    let modal = document.getElementById("modal-detalles");
+    let closeButton = document.getElementById("close-modal");
+
+    closeButton.addEventListener("click", () => {
+        modal.style.display = "none";
+    });
+
+    window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+});
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const gaptop = 100; // Ajusta según la altura de tu menú
+
+    document.querySelectorAll('a[data-scroll]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+
+            window.scrollTo({
+                top: targetElement.offsetTop - gaptop,
+                behavior: 'smooth'
+            });
+        });
+    });
+});

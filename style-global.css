@@ -2688,7 +2688,7 @@ header {
 
 /* Título de la card */
 .service-title {
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     font-weight: bold;
     margin-bottom: 10px;
 }
@@ -2729,9 +2729,19 @@ header {
     font-weight: bold;
 }
 
+
+.service-section h2 {
+    text-align: center;
+    font-size: 36px; /* Ajusta el tamaño según tus necesidades */
+    font-weight: bold; /* Opcional: para hacer el texto más grueso */
+    margin-bottom: 20px; /* Opcional: para agregar espacio debajo del título */
+}
+
 /* Responsive: en móvil las cards estarán en una sola columna */
 @media (max-width: 768px) {
     .service-card {
         margin-bottom: 20px;
     }
 }
+
+

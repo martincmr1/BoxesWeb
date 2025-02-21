@@ -1,0 +1,87 @@
+ 
+[
+    {
+      "imagen": "./images/oficial-todo-sobre-los-nuevos-volkswagen-gol-trend-y-voyage-2016.webp",
+      "titulo": "Volkswagen Gol Trend / Voyage 1.6 8v",
+      "codigos": ["172795", "4011558729509", "18958", "15424", "4011558807948","12167"],
+      "detalles": [
+        "Lubricante: Elaion Auro Plus 540",
+        "Filtro de Aceite",
+        "Filtro de Aire",
+        "Filtro de Combustible",
+        "Filtro de Habitáculo",
+        "Revisión de 27 puntos",
+        "Escaneo Electrónico"
+      ]
+    },
+    {
+      "imagen": "./images/Chevrolet-Prisma-2019-1-1024x683.jpg",
+      "titulo": "Chevrolet : Prisma / Onix 1.4",
+      "codigos": ["171795", "4011558744502", "15550", "15539","12167"],
+      "detalles": [
+        "Lubricante : Elaion Auro D1 530",
+        "Filtro de Aceite",
+        "Filtro de Aire",
+        "Filtro de Habitáculo",
+        "Revisión de 27 puntos",
+        "Escaneo Electrónico"
+      ]
+    },
+    {
+      "imagen": "./images/el-nuevo-peugeot-208-se-presenta-el-1deg-de-julio-en-argentina.webp",
+      "titulo": "Peugeot : 208 vti 1.6 / 1.4",
+      "codigos": ["172895", "15067", "15345", "15141","15576","12167"],
+      "detalles": [
+        "Lubricante: Elaion Auro Fr",
+        "Filtro de Aceite",
+        "Filtro de Aire",
+        "Filtro de Combustible",
+        "Filtro de Habitáculo",
+        "Revisión de 27 puntos",
+        "Escaneo Electrónico"
+      ]
+    },
+    {
+      "imagen": "https://cronos.fiat.com.ar/assets/images/img-version-cronos-drive-13-at.png",
+      "titulo": "Fiat : Cronos /Argo 1.3 Firefly",
+      "codigos": ["170995", "4011558758004", "4011558080624", "18711","12167"],
+      "detalles": [
+        "Lubricante: Elaion Auro D1 020 ",
+        "Filtro de Aceite",
+        "Filtro de Aire",
+        "Filtro de Combustible",
+        
+        "Revisión de 27 puntos",
+        "Escaneo Electrónico"
+      ]
+    },
+    {
+      "imagen": "https://cdn.motor1.com/images/mgl/819Po/s1/lanzamiento-ford-fiesta-kinetic-mercosur.jpg",
+      "titulo": "Ford : Fiesta Kinetic 1.6 ",
+      "codigos": ["171895", "15400", "4011558352998", "18726","12167"],
+      "detalles": [
+        "Lubricante: Elaion Auro FE 530 ",
+        "Filtro de Aceite",
+        "Filtro de Aire",
+        "Filtro de Combustible",
+        
+        "Revisión de 27 puntos",
+        "Escaneo Electrónico"
+      ]
+    },
+    {
+      "imagen": "https://www.jeep.com.ar/content/dam/cross-regional/latam/jeep/es_ar/2022/renegade-2022/sport-at6/Renegade_Sport_Branco_Polar-at6-modelizer-new.png.img.1440.png",
+      "titulo": "Jeep : Renegade 1.8 E-torq",
+      "codigos": ["171895", "171896", "15353", "4011558088132","4011558621636","12167"],
+      "detalles": [
+        "Lubricante: Elaion Auro FE 530 ",
+        "Filtro de Aceite",
+        "Filtro de Aire",
+        "Filtro de Combustible",
+        
+        "Revisión de 27 puntos",
+        "Escaneo Electrónico"
+      ]
+    }
+  ]
+  
