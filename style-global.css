@@ -2742,6 +2742,10 @@ header {
     .service-card {
         margin-bottom: 20px;
     }
+	.modal-content {
+        margin-top: 12%; /* Mueve el modal más abajo */
+        width: 90%; /* Asegura que el modal sea más ancho en móviles */
+    }
 }
 
 
