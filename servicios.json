@@ -3,7 +3,7 @@
     {
       "precio": "$ 137.531",
       "imagen": "./images/oficial-todo-sobre-los-nuevos-volkswagen-gol-trend-y-voyage-2016.webp",
-      "titulo": "Volkswagen Gol Trend 1.6 8v",
+      "marca": "Volkswagen Gol Trend 1.6 8v",
       "detalles": [
         "Lubricante: Elaion Auro Plus 540",
         "Filtro de Aceite",
@@ -17,7 +17,7 @@
     {
       "precio": "$ 135.217",
       "imagen": "./images/Chevrolet-Prisma-2019-1-1024x683.jpg",
-      "titulo": "Chevrolet : Prisma / Onix 1.4",
+      "marca": "Chevrolet : Prisma / Onix 1.4",
       "detalles": [
         "Lubricante : Elaion Auro D1 530",
         "Filtro de Aceite",
@@ -30,7 +30,7 @@
     {
       "precio": "$ 142.300",
       "imagen": "./images/el-nuevo-peugeot-208-se-presenta-el-1deg-de-julio-en-argentina.webp",
-      "titulo": "Peugeot : 208 vti 1.6 / 1.4",
+      "marca": "Peugeot : 208 vti 1.6 / 1.4",
       "detalles": [
         "Lubricante: Elaion Auro Fr",
         "Filtro de Aceite",

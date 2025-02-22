@@ -2637,22 +2637,7 @@ header {
 
 
 /* Contenedor del carrusel */
-.carousel-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    max-width: 800px; /* Ajusta el tamaño máximo según necesidad */
-    margin: 0 auto; /* Centra el carrusel */
-}
 
-/* Ajuste de las imágenes dentro del carrusel */
-.carousel-item img {
-    width: 100%;
-    height: auto; /* Mantiene la proporción */
-    max-height: 400px; /* Ajusta esto según lo que necesites */
-    object-fit: contain; /* Evita cortes y deformaciones */
-}
 
 /* Espaciado general */
 .service-section {
@@ -2692,6 +2677,12 @@ header {
     font-weight: bold;
     margin-bottom: 10px;
 }
+.service-model {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
 
 /* Lista de detalles del servicio */
 .service-details {
@@ -2736,6 +2727,20 @@ header {
     font-weight: bold; /* Opcional: para hacer el texto más grueso */
     margin-bottom: 20px; /* Opcional: para agregar espacio debajo del título */
 }
+
+.green-text {
+    color: green;
+    font-size: 1.5em; /* Ajusta el tamaño según tus necesidades */
+    font-weight: bold; /* Opcional: para hacer el texto en negrita */
+}
+
+
+.notice-text {
+    font-size: 1.2em; /* Ajusta el tamaño según tus necesidades */
+    font-weight: bold; /* Para hacer el texto en negrita */
+    color: black; /* Si quieres que el texto sea verde */
+}
+
 
 /* Responsive: en móvil las cards estarán en una sola columna */
 @media (max-width: 768px) {

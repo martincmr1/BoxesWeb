@@ -290,9 +290,9 @@ document.addEventListener("DOMContentLoaded", () => {
             card.innerHTML = `
                 <div class="service-card">
                     <span class="price-tag">${precioFormateado}</span>
-                    <img src="${service.imagen}" alt="${service.titulo}">
+                    <img src="${service.imagen}" alt="${service.marca}">
                     <div class="service-card-body">
-                        <h3 class="service-title">${service.titulo}</h3>
+                        <h3 class="service-title">${service.marca}</h3>
                         <ul class="service-details">
                             ${service.detalles.map(item => `<li>${item}</li>`).join("")}
                         </ul>
@@ -359,12 +359,16 @@ document.addEventListener("DOMContentLoaded", () => {
             card.innerHTML = `
                 <div class="service-card">
                     <span class="price-tag">${precioFormateado}</span>
-                    <img src="${service.imagen}" alt="${service.titulo}">
+                    <img src="${service.imagen}" alt="${service.marca}">
                     <div class="service-card-body">
-                        <h3 class="service-title">${service.titulo}</h3>
+                        <h3 class="service-title">${service.marca}</h3>
+                        <h3 class="service-model">${service.modelo}</h3>
                         <ul class="service-details">
                             ${service.detalles.map(item => `<li>${item}</li>`).join("")}
                         </ul>
+                        <h3 class="green-text">6 cuotas sin interés pagando con App YPF</h3>
+                        <h3 class="green-text">VISA ó MASTERCARD</h3>
+                        <p class="notice-text"><em>*Precios sujetos a modificación sin previo aviso</em></p>
                         <button class="details-btn" data-index="${index}">Detalles</button>
                     </div>
                 </div>
@@ -379,13 +383,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 let service = servicios[index];
 
                 let detallesHTML = `
-                    <h3>${service.titulo}</h3>
+                    <h3>${service.marca}</h3>
+                    <h3>${service.modelo}</h3>
+
                     <ul>
                         ${service.codigos.map(codigo => {
                             let producto = productosMap[codigo];
                             return producto ? `<li>${producto.descripcion}: <strong>${new Intl.NumberFormat("es-AR", { style: "currency", currency: "ARS", minimumFractionDigits: 0 }).format(producto.precio)}</strong></li>` : "";
                         }).join("")}
                     </ul>
+                    <p><em>*Precios sujetos a modificación sin previo aviso</em></p>
                 `;
 
                 mostrarModal(detallesHTML);

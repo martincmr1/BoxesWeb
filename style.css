@@ -250,9 +250,7 @@
 		font-size: clamp(40px, 9rem, 140px);
 		margin-bottom: 70px;
 	}
-	.testimonials-list{
-
-	}
+	
 	.testimonials-list .item{
 		margin-bottom: 30px;
 		padding-bottom: 30px;
@@ -548,12 +546,6 @@
 	margin: 15px 0;
 	font-size: 18px;
 	color: #28a745;
-}
-.carousel-inner img {
-	max-width: 100%;
-	max-height: 400px;
-	object-fit: cover;
-	border-radius: 10px;
 }
 
 
