@@ -1,33 +1,5 @@
 
 
-document.addEventListener("DOMContentLoaded", function () {
-    const fechaLimite = new Date("2025-02-15"); // 15 de enero a las 00:00
-    const fechaActual = new Date();
-
-    if (fechaActual >= fechaLimite) {
-        const primerItem = document.querySelector(".carousel-item.active");
-        if (primerItem) {
-            primerItem.remove(); // Elimina la imagen de la promoción expirada
-        }
-
-        // Ajustar la siguiente imagen como activa
-        const nuevoActivo = document.querySelector(".carousel-item");
-        if (nuevoActivo) {
-            nuevoActivo.classList.add("active");
-        }
-
-        // Ajustar los indicadores del carrusel
-        const primerIndicador = document.querySelector(".carousel-indicators .active");
-        if (primerIndicador) {
-            primerIndicador.remove();
-        }
-        
-        const nuevosBotones = document.querySelectorAll(".carousel-indicators button");
-        if (nuevosBotones.length > 0) {
-            nuevosBotones[0].classList.add("active");
-        }
-    }
-});
 
 
 
@@ -353,6 +325,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 maximumFractionDigits: 0  // Evita decimales
             }).format(precioTotal);
 
+            let precioCuotas = precioTotal / 6;
+            let precioCuotasFormateado = new Intl.NumberFormat("es-AR", {
+                style: "currency",
+                currency: "ARS",
+                minimumFractionDigits: 0, // Evita decimales
+                maximumFractionDigits: 0  // Evita decimales
+            }).format(precioCuotas);
+
             // Crear la tarjeta del servicio con el botón "Detalles"
             const card = document.createElement("div");
             card.classList.add("col-md-4", "col-12");
@@ -366,7 +346,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <ul class="service-details">
                             ${service.detalles.map(item => `<li>${item}</li>`).join("")}
                         </ul>
-                        <h3 class="green-text">6 cuotas sin interés pagando con App YPF</h3>
+                        <h3 class="green-text">6 cuotas sin interés de ${precioCuotasFormateado} pagando con App YPF</h3>
                         <h3 class="green-text">VISA ó MASTERCARD</h3>
                         <p class="notice-text"><em>*Precios sujetos a modificación sin previo aviso</em></p>
                         <button class="details-btn" data-index="${index}">Detalles</button>
@@ -447,3 +427,4 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+

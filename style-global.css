@@ -2742,6 +2742,7 @@ header {
 }
 
 
+
 /* Responsive: en móvil las cards estarán en una sola columna */
 @media (max-width: 768px) {
     .service-card {
