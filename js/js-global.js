@@ -285,8 +285,8 @@ document.addEventListener("DOMContentLoaded", () => {
     searchInput.type = "text";
     searchInput.className = "form-control mb-4";
     searchInput.placeholder = "Buscar modelo...";
-    searchInput.style.height = "4rem";  // Doble de altura
-    searchInput.style.fontSize = "1.5rem";  // Texto adaptado
+    searchInput.style.height = "5rem";  // Doble de altura
+    searchInput.style.fontSize = "2rem";  // Texto adaptado
     container.parentNode.insertBefore(searchInput, container);
 
     let serviciosData = [];
