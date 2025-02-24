@@ -2730,7 +2730,7 @@ header {
 
 .green-text {
     color: green;
-    font-size: 1.5em; /* Ajusta el tamaño según tus necesidades */
+    font-size: 1.8em; /* Ajusta el tamaño según tus necesidades */
     font-weight: bold; /* Opcional: para hacer el texto en negrita */
 }
 
@@ -2741,17 +2741,20 @@ header {
     color: black; /* Si quieres que el texto sea verde */
 }
 
+/*
 
+ Responsive: en móvil las cards estarán en una sola columna */
 
-/* Responsive: en móvil las cards estarán en una sola columna */
+/*
 @media (max-width: 768px) {
-    .service-card {
-        margin-bottom: 20px;
+ .service-card {
+    margin-bottom: 20px;
     }
 	.modal-content {
-        margin-top: 12%; /* Mueve el modal más abajo */
-        width: 90%; /* Asegura que el modal sea más ancho en móviles */
+        margin-top: 12%; 
+        width: 90%; 
     }
 }
 
+*/
 
