@@ -280,7 +280,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Cargar servicios y productos desde Firebase y localmente
+    const container = document.querySelector(".service-section .row");
+    const searchInput = document.createElement("input");
+    searchInput.type = "text";
+    searchInput.className = "form-control mb-4";
+    searchInput.placeholder = "Buscar modelo...";
+    searchInput.style.height = "4rem";  // Doble de altura
+    searchInput.style.fontSize = "1.5rem";  // Texto adaptado
+    container.parentNode.insertBefore(searchInput, container);
+
+    let serviciosData = [];
+
     Promise.all([
         fetch("./services.json").then(res => res.json()),
         fetch("https://api-boxes-default-rtdb.firebaseio.com/productos.json").then(res => res.json())
@@ -291,140 +301,87 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        console.log("Servicios cargados:", servicios);
-        console.log("Productos cargados:", productos);
-
-        const container = document.querySelector(".service-section .row");
-        if (!container) {
-            console.error("No se encontró el contenedor en el HTML.");
-            return;
-        }
-
-        container.innerHTML = ""; // Limpiar contenido previo
-
-        // Crear un mapa de productos { codigo: { descripcion, precio } } asegurándonos de que los precios sean números
         const productosMap = {};
         productos.forEach(producto => {
             productosMap[producto.codigo] = {
                 descripcion: producto.descripcion,
-                precio: Number(producto.precio) || 0 // Convertir precio a número y evitar NaN
+                precio: Number(producto.precio) || 0
             };
         });
 
-        // Iterar sobre cada servicio y calcular su precio total
-        servicios.forEach((service, index) => {
-            let precioTotal = service.codigos.reduce((total, codigo) => {
-                return total + (productosMap[codigo]?.precio || 0); // Si no existe el código, suma 0
-            }, 0);
+        serviciosData = servicios.map((service, index) => {
+            let precioTotal = service.codigos.reduce((total, codigo) => total + (productosMap[codigo]?.precio || 0), 0);
+            let precioFormateado = new Intl.NumberFormat("es-AR", { style: "currency", currency: "ARS", maximumFractionDigits: 0 }).format(precioTotal);
+            let precioCuotasFormateado = new Intl.NumberFormat("es-AR", { style: "currency", currency: "ARS", maximumFractionDigits: 0 }).format(precioTotal / 6);
 
-            // Formatear el precio sin decimales
-            let precioFormateado = new Intl.NumberFormat("es-AR", {
-                style: "currency",
-                currency: "ARS",
-                minimumFractionDigits: 0, // Evita decimales
-                maximumFractionDigits: 0  // Evita decimales
-            }).format(precioTotal);
-
-            let precioCuotas = precioTotal / 6;
-            let precioCuotasFormateado = new Intl.NumberFormat("es-AR", {
-                style: "currency",
-                currency: "ARS",
-                minimumFractionDigits: 0, // Evita decimales
-                maximumFractionDigits: 0  // Evita decimales
-            }).format(precioCuotas);
-
-            // Crear la tarjeta del servicio con el botón "Detalles"
-            const card = document.createElement("div");
-            card.classList.add("col-md-4", "col-12");
-            card.innerHTML = `
-                <div class="service-card">
-                    <span class="price-tag">${precioFormateado}</span>
-                    <img src="${service.imagen}" alt="${service.marca}">
-                    <div class="service-card-body">
-                        <h3 class="service-title">${service.marca}</h3>
-                        <h3 class="service-model">${service.modelo}</h3>
-                        <ul class="service-details">
-                            ${service.detalles.map(item => `<li>${item}</li>`).join("")}
-                        </ul>
-                        <h3 class="green-text">6 cuotas sin interés de ${precioCuotasFormateado} pagando con App YPF</h3>
-                        <h3 class="green-text">VISA ó MASTERCARD</h3>
-                        <p class="notice-text"><em>*Precios sujetos a modificación sin previo aviso</em></p>
-                        <button class="details-btn" data-index="${index}">Detalles</button>
-                    </div>
-                </div>
-            `;
-            container.appendChild(card);
+            return {
+                index,
+                modelo: service.modelo,
+                html: `
+                    <div class="col-md-4 col-12 card-item">
+                        <div class="service-card">
+                            <span class="price-tag">${precioFormateado}</span>
+                            <img src="${service.imagen}" alt="${service.marca}">
+                            <div class="service-card-body">
+                                <h3 class="service-title">${service.marca}</h3>
+                                <h3 class="service-model">${service.modelo}</h3>
+                                <ul class="service-details">
+                                    ${service.detalles.map(item => `<li>${item}</li>`).join("")}
+                                </ul>
+                                <h3 class="green-text">6 cuotas sin interés de ${precioCuotasFormateado} pagando con App YPF</h3>
+                                <h3 class="green-text">VISA ó MASTERCARD</h3>
+                                <p class="notice-text"><em>*Precios sujetos a modificación sin previo aviso</em></p>
+                                <button class="details-btn" data-index="${index}">Detalles</button>
+                            </div>
+                        </div>
+                    </div>`
+            };
         });
 
-        // Evento para mostrar detalles al hacer clic en "Detalles"
-        document.querySelectorAll(".details-btn").forEach(button => {
-            button.addEventListener("click", (event) => {
+        renderCards(serviciosData);
+
+        searchInput.addEventListener("input", () => {
+            const query = searchInput.value.toLowerCase();
+            const filteredServices = serviciosData.filter(service => service.modelo.toLowerCase().includes(query));
+            renderCards(filteredServices);
+        });
+
+        container.addEventListener("click", event => {
+            if (event.target.classList.contains("details-btn")) {
                 let index = event.target.getAttribute("data-index");
                 let service = servicios[index];
-
                 let detallesHTML = `
                     <h3>${service.marca}</h3>
                     <h3>${service.modelo}</h3>
-
                     <ul>
                         ${service.codigos.map(codigo => {
                             let producto = productosMap[codigo];
-                            return producto ? `<li>${producto.descripcion}: <strong>${new Intl.NumberFormat("es-AR", { style: "currency", currency: "ARS", minimumFractionDigits: 0 }).format(producto.precio)}</strong></li>` : "";
+                            return producto ? `<li>${producto.descripcion}: <strong>${new Intl.NumberFormat("es-AR", { style: "currency", currency: "ARS", maximumFractionDigits: 0 }).format(producto.precio)}</strong></li>` : "";
                         }).join("")}
                     </ul>
                     <p><em>*Precios sujetos a modificación sin previo aviso</em></p>
                 `;
-
                 mostrarModal(detallesHTML);
-            });
+            }
         });
+
     })
     .catch(error => console.error("Error al obtener los datos desde Firebase:", error));
-});
 
-// Función para mostrar el modal con la información de los productos
-function mostrarModal(content) {
-    let modal = document.getElementById("modal-detalles");
-    let modalContent = document.getElementById("modal-content");
+    function renderCards(services) {
+        container.innerHTML = services.map(service => service.html).join("");
+    }
 
-    modalContent.innerHTML = content;
-    modal.style.display = "block";
-}
+    function mostrarModal(content) {
+        let modal = document.getElementById("modal-detalles");
+        let modalContent = document.getElementById("modal-content");
+        modalContent.innerHTML = content;
+        modal.style.display = "block";
+    }
 
-// Cerrar el modal al hacer clic en la "X" o fuera del modal
-document.addEventListener("DOMContentLoaded", () => {
     let modal = document.getElementById("modal-detalles");
     let closeButton = document.getElementById("close-modal");
 
-    closeButton.addEventListener("click", () => {
-        modal.style.display = "none";
-    });
-
-    window.addEventListener("click", (event) => {
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
-    });
+    closeButton.addEventListener("click", () => modal.style.display = "none");
+    window.addEventListener("click", event => { if (event.target === modal) modal.style.display = "none"; });
 });
-
-
-
-
-document.addEventListener("DOMContentLoaded", function () {
-    const gaptop = 100; // Ajusta según la altura de tu menú
-
-    document.querySelectorAll('a[data-scroll]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-
-            const targetId = this.getAttribute('href').substring(1);
-            const targetElement = document.getElementById(targetId);
-
-            window.scrollTo({
-                top: targetElement.offsetTop - gaptop,
-                behavior: 'smooth'
-            });
-        });
-    });
-});
-
