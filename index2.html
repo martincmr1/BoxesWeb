@@ -2,77 +2,125 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrusel Responsive con Bootstrap</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CRUD de Vehículos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">YPF Boxes</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#reviews">Promociones</a></li>
-                </ul>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <h1 class="text-center">CRUD de Vehículos</h1>
+
+    <!-- Formulario para agregar vehículo -->
+    <div class="card p-4 mt-4">
+        <h3>Agregar Vehículo</h3>
+        <form id="vehicle-form">
+            <div class="mb-3">
+                <label class="form-label">Imagen (URL)</label>
+                <input type="text" id="imagen" class="form-control" placeholder="URL de la imagen" required>
             </div>
-        </div>
-    </nav>
-    
-    <div id="reviews" class="container mt-5 pt-5">
-        <h2 class="text-center">Promociones</h2>
-        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="row text-center">
-                        <div class="col-md-4">
-                            <img src="https://serviclub.com.ar/modules/smartblog/images/378.jpg" class="d-block w-100" alt="Imagen 1">
-                        </div>
-                        <div class="col-md-4">
-                            <img src="https://serviclub.com.ar/img/dorthumbs/300x300/smartblog/images/389.jpg" class="d-block w-100" alt="Imagen 2">
-                        </div>
-                        <div class="col-md-4">
-                            <img src="./images/promoescalonado.jpg" class="d-block w-100" alt="Imagen 3">
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="row text-center">
-                        <div class="col-md-4">
-                            <img src="./images/promoaca.jpg" class="d-block w-100" alt="Imagen 4">
-                        </div>
-                        <div class="col-md-4">
-                            <img src="./images/premios-boxes-4000 (1).jpg" class="d-block w-100" alt="Imagen 5">
-                        </div>
-                        <div class="col-md-4">
-                            <img src="https://app.ypf.com/images/hero/hero-man.png" class="d-block w-100" alt="Imagen 6">
-                        </div>
-                    </div>
-                </div>
+            <div class="mb-3">
+                <label class="form-label">Marca</label>
+                <input type="text" id="marca" class="form-control" placeholder="Ej: Volkswagen" required>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
+            <div class="mb-3">
+                <label class="form-label">Modelo</label>
+                <input type="text" id="modelo" class="form-control" placeholder="Ej: Gol Trend 1.6" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Año</label>
+                <input type="text" id="anio" class="form-control" placeholder="Ej: 2009->" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Códigos (separados por coma)</label>
+                <input type="text" id="codigos" class="form-control" placeholder="Ej: 172795, 4011558729509, 18958" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Detalles (separados por coma)</label>
+                <input type="text" id="detalles" class="form-control" placeholder="Ej: Lubricante, Filtro de aceite" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Agregar Vehículo</button>
+        </form>
     </div>
-    
-    <script>
-        document.querySelectorAll('a.nav-link').forEach(anchor => {
-            anchor.addEventListener('click', function(event) {
-                event.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                document.getElementById(targetId).scrollIntoView({ behavior: 'smooth', block: 'start' });
-            });
+
+    <!-- Tabla de vehículos -->
+    <div class="card p-4 mt-4">
+        <h3>Lista de Vehículos</h3>
+        <table class="table table-bordered table-hover mt-3">
+            <thead>
+                <tr>
+                    <th>Imagen</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Año</th>
+                    <th>Códigos</th>
+                    <th>Detalles</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="vehicle-list"></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    let vehicles = [];
+
+    // Cargar vehículos desde el JSON
+    fetch("services.json")
+        .then(response => response.json())
+        .then(data => {
+            vehicles = data;
+            renderTable();
         });
-    </script>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    // Renderizar la tabla
+    function renderTable() {
+        const tableBody = document.getElementById("vehicle-list");
+        tableBody.innerHTML = "";
+        vehicles.forEach((vehicle, index) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td><img src="${vehicle.imagen}" width="100" height="60" class="img-thumbnail"></td>
+                <td>${vehicle.marca}</td>
+                <td>${vehicle.modelo}</td>
+                <td>${vehicle.año}</td>
+                <td>${vehicle.codigos.join(", ")}</td>
+                <td>${vehicle.detalles.join(", ")}</td>
+                <td><button class="btn btn-danger btn-sm" onclick="deleteVehicle(${index})">Eliminar</button></td>
+            `;
+            tableBody.appendChild(row);
+        });
+    }
+
+    // Agregar un vehículo
+    document.getElementById("vehicle-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const newVehicle = {
+            imagen: document.getElementById("imagen").value,
+            marca: document.getElementById("marca").value,
+            modelo: document.getElementById("modelo").value,
+            año: document.getElementById("anio").value,
+            codigos: document.getElementById("codigos").value.split(",").map(codigo => codigo.trim()),
+            detalles: document.getElementById("detalles").value.split(",").map(detalle => detalle.trim())
+        };
+
+        vehicles.push(newVehicle);
+        renderTable();
+        document.getElementById("vehicle-form").reset();
+    });
+
+    // Eliminar un vehículo
+    function deleteVehicle(index) {
+        if (confirm("¿Seguro que deseas eliminar este vehículo?")) {
+            vehicles.splice(index, 1);
+            renderTable();
+        }
+    }
+</script>
+
 </body>
 </html>
+
+

@@ -215,19 +215,22 @@
               </div>
               
 
-    <div class="container service-section" > 
-        <h2 class="text-center mb-3 display-5 fw-bold">Servicios Premium</h2>
-        <div class="row">
-            <!-- Aquí se insertarán las tarjetas -->
-        </div>
-    </div>
-
-
-    
-    
-</section>
-    
-    
+              <div class="container service-section"> 
+                <h2 class="text-center mb-3 display-5 fw-bold">Servicios Premium</h2>
+                <div class="row">
+                    <!-- Aquí se insertarán las tarjetas -->
+                </div>
+            </div>
+            
+            <!-- Paginación para escritorio -->
+            <div id="pagination" class="d-none d-md-flex justify-content-center mt-3"></div>
+            
+            <!-- Contenedor para los botones de navegación en móvil -->
+            <div id="mobile-navigation" class="d-flex justify-content-between align-items-center d-md-none mt-3">
+                <button id="prev-card" class="btn btn-primary">←</button>
+                <button id="next-card" class="btn btn-primary">→</button>
+            </div>
+        </section>            
 
 
 <!-- seccion productos elaion
@@ -314,12 +317,12 @@
 </footer>
  
     <!-- Modal para mostrar detalles de los productos -->
-<div id="modal-detalles" class="modal">
-    <div class="modal-content">
-        <span id="close-modal" class="close">&times;</span>
-        <div id="modal-content"></div>
+    <div id="modal-detalles" class="modal">
+        <div class="modal-content" id="modal-content">
+            <!-- Aquí se inyectarán los detalles -->
+        </div>
     </div>
-</div>
+    
 
 <!-- Estilos para el modal -->
 <style>

@@ -277,19 +277,27 @@ document.addEventListener("DOMContentLoaded", () => {
     .catch(error => console.error("Error al obtener los datos desde Firebase:", error));
 });
 */
-
-
 document.addEventListener("DOMContentLoaded", () => {
     const container = document.querySelector(".service-section .row");
+    const paginationContainer = document.getElementById("pagination");
+    const mobileNav = document.getElementById("mobile-navigation");
+    const prevCardBtn = document.getElementById("prev-card");
+    const nextCardBtn = document.getElementById("next-card");
+
     const searchInput = document.createElement("input");
     searchInput.type = "text";
     searchInput.className = "form-control mb-4";
     searchInput.placeholder = "Buscar modelo...";
-    searchInput.style.height = "5rem";  // Doble de altura
-    searchInput.style.fontSize = "2rem";  // Texto adaptado
+    searchInput.style.height = "5rem";
+    searchInput.style.fontSize = "2rem";
+    
+    // Insertar el buscador antes del contenedor de servicios
     container.parentNode.insertBefore(searchInput, container);
 
     let serviciosData = [];
+    let productosMap = {}; 
+    let currentPage = 1;
+    let itemsPerPage = 3;  
 
     Promise.all([
         fetch("./services.json").then(res => res.json()),
@@ -301,7 +309,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const productosMap = {};
         productos.forEach(producto => {
             productosMap[producto.codigo] = {
                 descripcion: producto.descripcion,
@@ -316,7 +323,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             return {
                 index,
-                modelo: service.modelo,
+                modelo: service.modelo.toLowerCase(),
+                codigos: service.codigos,
+                marca: service.marca,
+                año: service.año,
+                detalles: service.detalles,
+                imagen: service.imagen,
                 html: `
                     <div class="col-md-4 col-12 card-item">
                         <div class="service-card">
@@ -325,6 +337,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             <div class="service-card-body">
                                 <h3 class="service-title">${service.marca}</h3>
                                 <h3 class="service-model">${service.modelo}</h3>
+                                <h3 class="service-model">${service.año}</h3>
                                 <ul class="service-details">
                                     ${service.detalles.map(item => `<li>${item}</li>`).join("")}
                                 </ul>
@@ -338,50 +351,152 @@ document.addEventListener("DOMContentLoaded", () => {
             };
         });
 
-        renderCards(serviciosData);
+        renderCards();
+        setupDetailsModal();
+        setupMobileNavigation();
 
         searchInput.addEventListener("input", () => {
-            const query = searchInput.value.toLowerCase();
-            const filteredServices = serviciosData.filter(service => service.modelo.toLowerCase().includes(query));
-            renderCards(filteredServices);
-        });
-
-        container.addEventListener("click", event => {
-            if (event.target.classList.contains("details-btn")) {
-                let index = event.target.getAttribute("data-index");
-                let service = servicios[index];
-                let detallesHTML = `
-                    <h3>${service.marca}</h3>
-                    <h3>${service.modelo}</h3>
-                    <ul>
-                        ${service.codigos.map(codigo => {
-                            let producto = productosMap[codigo];
-                            return producto ? `<li>${producto.descripcion}: <strong>${new Intl.NumberFormat("es-AR", { style: "currency", currency: "ARS", maximumFractionDigits: 0 }).format(producto.precio)}</strong></li>` : "";
-                        }).join("")}
-                    </ul>
-                    <p><em>*Precios sujetos a modificación sin previo aviso</em></p>
-                `;
-                mostrarModal(detallesHTML);
+            const query = searchInput.value.toLowerCase().trim();
+            if (query === "") {
+                renderCards();
+                return;
             }
+            const filteredServices = serviciosData.filter(service => service.modelo.includes(query));
+            currentPage = 1;
+            renderCards(filteredServices);
         });
 
     })
     .catch(error => console.error("Error al obtener los datos desde Firebase:", error));
 
-    function renderCards(services) {
-        container.innerHTML = services.map(service => service.html).join("");
+    function renderCards(services = serviciosData) {
+        let totalPages = Math.ceil(services.length / itemsPerPage);
+        currentPage = Math.max(1, Math.min(currentPage, totalPages));
+
+        let start = (currentPage - 1) * itemsPerPage;
+        let end = start + itemsPerPage;
+        let paginatedItems = services.slice(start, end);
+        container.innerHTML = paginatedItems.map(service => service.html).join("");
+
+        renderPagination(services);
+        updateMobileNavigation(totalPages);
     }
 
-    function mostrarModal(content) {
-        let modal = document.getElementById("modal-detalles");
-        let modalContent = document.getElementById("modal-content");
-        modalContent.innerHTML = content;
-        modal.style.display = "block";
+    function renderPagination(services) {
+        if (!paginationContainer) return;
+        paginationContainer.innerHTML = ''; 
+
+        let totalPages = Math.ceil(services.length / itemsPerPage);
+
+        // Botón "Anterior"
+        let prevBtn = document.createElement("button");
+        prevBtn.innerText = "◀";
+        prevBtn.classList.add("page-btn");
+        prevBtn.disabled = currentPage === 1;
+        prevBtn.addEventListener("click", () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderCards(services);
+            }
+        });
+        paginationContainer.appendChild(prevBtn);
+
+        // Botones numéricos (solo para escritorio)
+        for (let i = 1; i <= totalPages; i++) {
+            let btn = document.createElement("button");
+            btn.innerText = i;
+            btn.classList.add("page-btn");
+            if (i === currentPage) btn.classList.add("active");
+            btn.addEventListener("click", () => {
+                currentPage = i;
+                renderCards(services);
+            });
+            paginationContainer.appendChild(btn);
+        }
+
+        // Botón "Siguiente"
+        let nextBtn = document.createElement("button");
+        nextBtn.innerText = "▶";
+        nextBtn.classList.add("page-btn");
+        nextBtn.disabled = currentPage === totalPages;
+        nextBtn.addEventListener("click", () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderCards(services);
+            }
+        });
+        paginationContainer.appendChild(nextBtn);
     }
 
-    let modal = document.getElementById("modal-detalles");
-    let closeButton = document.getElementById("close-modal");
+    function setupMobileNavigation() {
+        if (!prevCardBtn || !nextCardBtn) return;
 
-    closeButton.addEventListener("click", () => modal.style.display = "none");
-    window.addEventListener("click", event => { if (event.target === modal) modal.style.display = "none"; });
+        prevCardBtn.addEventListener("click", () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderCards();
+            }
+        });
+
+        nextCardBtn.addEventListener("click", () => {
+            let totalPages = Math.ceil(serviciosData.length / itemsPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderCards();
+            }
+        });
+    }
+
+    function updateMobileNavigation(totalPages) {
+        if (!prevCardBtn || !nextCardBtn) return;
+        prevCardBtn.disabled = currentPage === 1;
+        nextCardBtn.disabled = currentPage === totalPages;
+    }
+
+    function setupDetailsModal() {
+        container.addEventListener("click", event => {
+            if (event.target.classList.contains("details-btn")) {
+                let index = parseInt(event.target.getAttribute("data-index"), 10);
+                let service = serviciosData.find(s => s.index === index);
+                if (!service) return;
+    
+                let modal = document.getElementById("modal-detalles");
+                let modalContent = document.getElementById("modal-content");
+    
+                if (!modal || !modalContent) {
+                    console.error("No se encontró el modal en el DOM.");
+                    return;
+                }
+    
+                let detallesHTML = `
+                    <h3>${service.marca} - ${service.modelo} (${service.año})</h3>
+                    <img src="${service.imagen}" alt="${service.marca}" style="width: 100%; max-height: 200px; object-fit: contain;">
+                    <ul>
+                        ${service.codigos.map(codigo => {
+                            let producto = productosMap[codigo];
+                            return producto 
+                                ? `<li>${producto.descripcion}: <strong>${new Intl.NumberFormat("es-AR", { style: "currency", currency: "ARS", maximumFractionDigits: 0 }).format(producto.precio)}</strong></li>` 
+                                : "<li>Producto no encontrado</li>";
+                        }).join("")}
+                    </ul>
+                    <p><em>*Precios sujetos a modificación sin previo aviso</em></p>
+                    <button id="close-modal" class="close-btn">Cerrar</button>
+                `;
+    
+                modalContent.innerHTML = detallesHTML;
+                modal.style.display = "block";
+    
+                document.getElementById("close-modal").addEventListener("click", () => {
+                    modal.style.display = "none";
+                });
+    
+                modal.addEventListener("click", (event) => {
+                    if (event.target === modal) {
+                        modal.style.display = "none";
+                    }
+                });
+            }
+        });
+    }
+    
 });
