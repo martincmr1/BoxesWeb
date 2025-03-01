@@ -350,6 +350,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>`
             };
         });
+// Ordenar por marca alfabéticamente
+serviciosData.sort((a, b) => a.marca.localeCompare(b.marca));
 
         renderCards();
         setupDetailsModal();
