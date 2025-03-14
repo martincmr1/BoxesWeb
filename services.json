@@ -325,6 +325,134 @@
             " Revisión de 36 puntos",
             " Escaneo Electrónico"
         ]
+    },
+    {
+        "imagen": "https://autofinancia.com.ar/wp-content/uploads/2021/10/MobiLike34.jpeg",
+        "marca": "Fiat ",
+        "modelo": "Mobi 1.0 L",
+        "año": "2016->",
+        "codigos": [
+            "171895",
+            "18572",
+            "4011558072872",
+            "4011558621636",
+            "12167"
+        ],
+        "detalles": [
+            "Lubricante: Elaion Auro FE 530 ",
+            " Filtro de Aceite",
+            " Filtro de Aire",
+            " Filtro de Combustible",
+            " Revisión de 36 puntos",
+            " Escaneo Electrónico"
+        ]
+    },
+    {
+        "imagen": "https://i.pinimg.com/736x/8c/05/63/8c0563f611199967f6a9ab2efa9c517d.jpg",
+        "marca": "Volkswagen",
+        "modelo": "Gol 1.4 Power/Country",
+        "año": "2010->",
+        "codigos": [
+            "172795",
+            "18622",
+            "18310",
+            "15424",
+            "12167"
+        ],
+        "detalles": [
+            "Lubricante: Elaion Auro Plus 540",
+            " Filtro de Aceite",
+            " Filtro de Aire",
+            " Filtro de Combustible",
+            " Revisión de 36 puntos",
+            " Escaneo Electrónico"
+        ]
+    },
+    {
+        "imagen": "https://cdn.motor1.com/images/mgl/vR9pR/s1/lanzamiento-chevrolet-aveo-g3.jpg",
+        "marca": "Chevrolet ",
+        "modelo": "Aveo 1.6 ",
+        "año": "2005->",
+        "codigos": [
+            "171795",
+            "4011558744502",
+            "18959",
+            "15351",
+            "12167"
+        ],
+        "detalles": [
+            "Lubricante : Elaion Auro D1 530",
+            " Filtro de Aceite",
+            " Filtro de Aire",
+            " Filtro de Combustible",
+            " Revisión de 36 puntos",
+            " Escaneo Electrónico \t"
+        ]
+    },
+    {
+        "imagen": "https://cdn.motor1.com/images/mgl/B39ej/s1/lanzamiento-peugeot-partner-2018.jpg",
+        "marca": "Peugeot ",
+        "modelo": "Partner Hdi 1.6 ",
+        "año": "2011->",
+        "codigos": [
+            "172995",
+            "18484",
+            "15397",
+            "15504",
+            "15610",
+            "12167"
+        ],
+        "detalles": [
+            "Lubricante: Elaion Auro Fr",
+            " Filtro de Aceite",
+            " Filtro de Aire",
+            " Filtro de Combustible",
+            " Filtro de Habitáculo",
+            " Revisión de 36 puntos",
+            " Escaneo Electrónico"
+        ]
+    },
+    {
+        "imagen": "https://cdn.motor1.com/images/mgl/B3O9j/s3/lanzamiento-renault-clio-mio.jpg",
+        "marca": "Renault",
+        "modelo": "Clio Mio 1.2 ",
+        "año": "2012->",
+        "codigos": [
+            "172995",
+            "18577",
+            "18416",
+            "15141",
+            "12167"
+        ],
+        "detalles": [
+            "Lubricante: Elaion Auro Fr 540",
+            " Filtro de Aceite",
+            " Filtro de Aire",
+            " Filtro de Combustible",
+            "Revisión de 36 puntos",
+            " Escaneo Electrónico"
+        ]
+    },
+    {
+        "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTckvzcugobl3ZKteu8OHV3543Rdl3OD2KjcQ&s",
+        "marca": "Renault",
+        "modelo": "Kangoo 1.6 16v K4M",
+        "año": "2008->",
+        "codigos": [
+            "172995",
+            "172996",
+            "18624",
+            "18042",
+            "15141",
+            "12167"
+        ],
+        "detalles": [
+            "Lubricante: Elaion Auro Fr 540",
+            " Filtro de Aceite",
+            " Filtro de Aire",
+            " Filtro de Combustible",
+            " Revisión de 36 puntos",
+            " Escaneo Electrónico"
+        ]
     }
 ]
-
