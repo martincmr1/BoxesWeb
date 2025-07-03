@@ -67,7 +67,7 @@
         ]
     },
     {
-        "imagen": "https://cronos.fiat.com.ar/assets/images/img-version-cronos-drive-13-at.png",
+        "imagen": "./images/fiat-argo-vs-cronos-diferencias.jpg",
         "marca": "Fiat",
         "modelo": "Cronos /Argo 1.3 Firefly",
         "año": "",
