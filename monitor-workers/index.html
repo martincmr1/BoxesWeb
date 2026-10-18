@@ -12,7 +12,7 @@ label{display:block;font-size:12px;font-weight:bold;color:#69788f;margin-bottom:
 input{border:1px solid #cad5e5;border-radius:9px;padding:12px;width:100%;font:inherit}
 .field{flex:1;min-width:220px}.field.small{max-width:250px}
 button{background:#0451e4;border:0;color:white;border-radius:10px;padding:13px 21px;font-weight:bold;cursor:pointer}
-button:disabled{opacity:.5;cursor:wait}.muted{color:#708098;font-size:13px}
+button:disabled{opacity:.5;cursor:wait}button[hidden],div[hidden]{display:none!important}textarea{font:inherit}.muted{color:#708098;font-size:13px}
 .summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px;margin-bottom:16px}
 .metric{border:1px solid #e0e6f1;background:white;padding:17px;border-radius:14px}
 .metric span{display:block;font-size:12px;color:#63738a}.metric strong{display:block;font-size:30px;margin-top:6px}
@@ -24,52 +24,118 @@ table{width:100%;border-collapse:collapse;text-align:left}th,td{padding:13px;bor
 #status[role=alert]{color:#ad2c2c}
 @media(max-width:600px){header{padding:20px}header h1{font-size:23px}th,td{padding:10px 8px}}
 </style></head><body>
-<header><div style="font-weight:900;letter-spacing:2px">YPF BOXES</div><h1>Monitor de Workers</h1><p>Estado manual · Sin actualizaciones automáticas</p></header>
+<header><div style="font-weight:900;letter-spacing:2px">YPF BOXES</div><h1>Monitor de Workers</h1><p>Monitor directo de Firebase · Sin actualizaciones automáticas</p></header>
 <main>
 <section class="card">
-<div class="toolbar">
-<div class="field"><label for="endpoint">Dirección API del monitor</label><input id="endpoint" type="url" placeholder="https://tu-dominio.com.ar/api/monitor/workers" autocomplete="off" spellcheck="false"></div>
-<div class="field small"><label for="credential">Clave de acceso del monitor</label><input id="credential" type="password" placeholder="Clave exclusiva del monitor" autocomplete="off"></div>
-<button id="refresh" type="button">↻ Actualizar</button>
+<h2>Acceso al monitor</h2>
+<p class="muted">Se conecta directamente con Firebase Authentication y Firestore, sin Vercel. Los datos solo se consultan al tocar Actualizar.</p>
+<details id="configPanel"><summary>Configuración pública de Firebase Web (primera vez)</summary>
+<label for="config">Configuración SDK Web (JSON)</label>
+<textarea id="config" rows="4" style="width:100%;padding:12px;border:1px solid #cad5e5;border-radius:9px" spellcheck="false" placeholder='{"apiKey":"...","authDomain":"...firebaseapp.com","projectId":"...","appId":"..."}'></textarea>
+<p class="muted">Pegá solo el objeto del SDK Web, nunca credenciales de Firebase Admin ni el secreto de los workers. Se guarda únicamente la configuración pública.</p>
+<button id="save" type="button">Guardar configuración</button>
+</details>
+<div class="toolbar" style="margin-top:12px">
+<div class="field" id="emailField"><label for="email">Correo Firebase Authentication</label><input id="email" type="email" autocomplete="username" placeholder="Correo autorizado"></div>
+<div class="field small" id="passField"><label for="password">Contraseña</label><input id="password" type="password" autocomplete="current-password" placeholder="Contraseña de acceso"></div>
+<button id="signin" type="button">Ingresar</button>
+<button id="signout" type="button" hidden>Salir</button>
+<button id="refresh" type="button" disabled>↻ Actualizar</button>
 </div>
-<p class="muted">La página no hace solicitudes hasta que presionás Actualizar. La clave no se guarda en el navegador.</p>
-<p id="status" role="alert" aria-live="polite">Sin datos. Configurá la API de monitoreo y presioná Actualizar.</p>
+<p id="status" role="status" aria-live="polite">Iniciá sesión para consultar los workers.</p>
 </section>
 <div class="summary" id="metrics"></div>
-<section class="card"><h2>Trabajadores</h2><p id="last" class="muted">Todavía no se actualizó.</p>
-<div class="tablewrap"><table><thead><tr><th>Nombre</th><th>Versión</th><th>Estado</th><th>Último contacto</th></tr></thead><tbody id="workers"><tr><td colspan="4">Sin datos</td></tr></tbody></table></div></section>
-<section class="card"><h2>Actividad reciente</h2><p class="note">Los indicadores de solicitudes muestran únicamente la muestra de las últimas 40 consultas, no los totales históricos.</p>
-<div class="summary" id="activity"></div>
-<div class="tablewrap"><table><thead><tr><th>Estado</th><th>Fecha</th><th>Worker</th><th>Intentos</th></tr></thead><tbody id="requests"><tr><td colspan="4">Sin datos</td></tr></tbody></table></div></section>
+<section class="card"><h2>Trabajadores</h2><p id="last" class="muted">Todavía no se consultaron datos.</p>
+<div class="tablewrap"><table><thead><tr><th>Nombre</th><th>Versión</th><th>Estado</th><th>Último contacto</th></tr></thead><tbody id="workers"><tr><td colspan="4">Sin datos</td></tr></tbody></table></div><p class="muted">Se leen hasta 100 documentos de la colección salesforce_bridge_workers por actualización. No se accede a patentes, DNI ni resultados de clientes.</p></section>
+
 </main>
-<script>
-"use strict";
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+import { getAuth, setPersistence, inMemoryPersistence, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+import { getFirestore, collection, orderBy, query, limit, getDocsFromServer } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 const $=id=>document.getElementById(id);
 const make=(tag,value)=>{const e=document.createElement(tag);e.textContent=String(value??"—");return e};
-const datetime=ms=>ms?new Date(ms).toLocaleString("es-AR"):"—";
-const ago=(ms,ref)=>ms?Math.max(0,Math.round((ref-ms)/1000))+" s":"—";
-const metrics=(where,entries)=>{const el=$(where);el.replaceChildren();for(const [label,value] of entries){const card=document.createElement("div");card.className="metric";card.append(make("span",label),make("strong",value));el.append(card)}};
-function state(worker){return !worker.online?["Desconectado","off"]:worker.salesforceReady?["Disponible","good"]:["Sin sesión","bad"]}
+const key="boxes-monitor-sdk-web";
+const stored=localStorage.getItem(key);
+if(stored)$("config").value=stored;else $("configPanel").open=true;
+let auth=null,db=null,user=null;
+function message(value){$("status").textContent=value}
+function toggle(signed){
+  $("emailField").hidden=signed;$("passField").hidden=signed;$("signin").hidden=signed;
+  $("signout").hidden=!signed;$("refresh").disabled=!signed;
+}
+$("save").addEventListener("click",()=>{
+  try{
+    if(auth)throw Error("Para cambiar de proyecto recargá la página.");
+    const data=JSON.parse($("config").value);
+    if(["apiKey","authDomain","projectId","appId"].some(k=>typeof data[k]!=="string"||!data[k]))throw Error("Faltan apiKey, authDomain, projectId o appId.");
+    const safe={apiKey:data.apiKey,authDomain:data.authDomain,projectId:data.projectId,appId:data.appId};
+    localStorage.setItem(key,JSON.stringify(safe));$("config").value=JSON.stringify(safe,null,2);
+    $("configPanel").open=false;message("Configuración pública guardada. Ya podés ingresar.");
+  }catch(err){message("Error de configuración: "+err.message)}
+});
+$("signin").addEventListener("click",async()=>{
+  const email=$("email").value.trim(),pass=$("password").value;
+  if(!email||!pass){message("Ingresá correo y contraseña.");return}
+  $("signin").disabled=true;message("Iniciando sesión...");
+  try{
+    const cfg=JSON.parse(localStorage.getItem(key)||$("config").value);
+    if(["apiKey","authDomain","projectId","appId"].some(k=>!cfg[k]))throw Error("Guardá primero la configuración de Firebase Web.");
+    if(!auth){
+      const app=initializeApp(cfg);
+      auth=getAuth(app);
+      await setPersistence(auth,inMemoryPersistence);
+      db=getFirestore(app);
+    }
+    const credential=await signInWithEmailAndPassword(auth,email,pass);
+    user=credential.user;$("password").value="";toggle(true);
+    message("Conectado como "+(user.email||"usuario")+". Presioná Actualizar para consultar Firestore.");
+  }catch(err){
+    message(err.code==="auth/invalid-credential"?"Usuario o contraseña incorrectos.":("No se pudo ingresar: "+(err.message||"Error")));
+  }finally{$("signin").disabled=false}
+});
+$("signout").addEventListener("click",async()=>{
+  $("refresh").disabled=true;if(auth)await signOut(auth);user=null;toggle(false);
+  $("metrics").replaceChildren();$("last").textContent="Sin datos actuales.";
+  const tr=document.createElement("tr"),td=make("td","Iniciá sesión para ver los workers.");td.colSpan=4;
+  tr.append(td);$("workers").replaceChildren(tr);message("Sesión cerrada.");
+});
+const date=ms=>ms?new Date(ms).toLocaleString("es-AR"):"—";
+const ago=(ms,now)=>{if(!ms)return"Sin registro";const sec=Math.max(0,Math.floor((now-ms)/1000));return sec<60?"Hace "+sec+" s":sec<3600?"Hace "+Math.floor(sec/60)+" min":date(ms)};
+function metrics(entries){
+  const el=$("metrics");el.replaceChildren();
+  for(const [label,value] of entries){const card=document.createElement("div");card.className="metric";card.append(make("span",label),make("strong",value));el.append(card)}
+}
+function state(w){return !w.online?["Desconectado","off"]:w.ready?["Disponible","good"]:["Sin sesión","bad"]}
 function cell(tr,value){tr.append(make("td",value))}
-function render(d){
-const summary=d.summary||{}, now=Number(d.updatedAtMs)||Date.now();
-metrics("metrics",[["Workers registrados",summary.totalWorkers??0],["Conectados",summary.online??0],["Disponibles",summary.ready??0],["Sin sesión",summary.onlineNoSession??0],["Desconectados",summary.offline??0]]);
-metrics("activity",[["Pendientes",summary.recentPending??0],["Procesando",summary.recentProcessing??0],["Completadas",summary.recentDone??0],["Errores",summary.recentError??0]]);
-$("last").textContent="Última actualización manual: "+datetime(now)+" · Online: contacto en los últimos "+(d.onlineWindowSeconds||180)+" segundos";
-const workers=$("workers");workers.replaceChildren();for(const w of d.workers||[]){const tr=document.createElement("tr");cell(tr,w.workerName||w.workerId);cell(tr,w.version||"—");const td=document.createElement("td"),p=make("span",state(w)[0]);p.className="pill "+state(w)[1];td.append(p);tr.append(td);cell(tr,ago(w.lastSeenMs,now));workers.append(tr)}if(!workers.children.length){const tr=document.createElement("tr");const td=make("td","No se encontraron workers");td.colSpan=4;tr.append(td);workers.append(tr)}
-const requests=$("requests");requests.replaceChildren();for(const r of d.recentRequests||[]){const tr=document.createElement("tr");cell(tr,r.status);cell(tr,datetime(r.createdAtMs));cell(tr,r.claimedBy||"—");cell(tr,r.attempts??0);requests.append(tr)}if(!requests.children.length){const tr=document.createElement("tr");const td=make("td","Sin solicitudes recientes");td.colSpan=4;tr.append(td);requests.append(tr)}
+function render(workers,now){
+  const online=workers.filter(w=>w.online).length,ready=workers.filter(w=>w.online&&w.ready).length;
+  metrics([["Registrados",workers.length],["Conectados",online],["Disponibles",ready],["Sin sesión",online-ready],["Desconectados",workers.length-online]]);
+  $("last").textContent="Última actualización manual: "+date(now)+" · Conectado: último heartbeat dentro de 180 segundos";
+  workers.sort((a,b)=>(Number(b.online)*2+Number(b.ready))-(Number(a.online)*2+Number(a.ready))||b.lastSeenMs-a.lastSeenMs);
+  const body=$("workers");body.replaceChildren();
+  for(const w of workers){
+    const tr=document.createElement("tr");cell(tr,w.workerName||w.id);cell(tr,w.version||"—");
+    const td=document.createElement("td"),tag=make("span",state(w)[0]);tag.className="pill "+state(w)[1];td.append(tag);tr.append(td);
+    cell(tr,ago(w.lastSeenMs,now));body.append(tr);
+  }
+  if(!workers.length){const tr=document.createElement("tr"),td=make("td","No se encontraron workers.");td.colSpan=4;tr.append(td);body.append(tr)}
 }
 $("refresh").addEventListener("click",async()=>{
-const url=$("endpoint").value.trim(),secret=$("credential").value;
-if(!url||!secret){$("status").textContent="Ingresá la URL de la API y la clave.";return}
-let parsed;
-try{parsed=new URL(url);if(parsed.protocol!=="https:"||parsed.username||parsed.password||parsed.search||parsed.hash||parsed.pathname!=="/api/monitor/workers")throw Error()}catch{$("status").textContent="Usá una URL HTTPS terminada en /api/monitor/workers.";return}
-$("refresh").disabled=true;$("status").textContent="Consultando estado...";
-try{const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),15000);
-let response;try{response=await fetch(parsed.href,{headers:{Authorization:"Bearer "+secret},cache:"no-store",signal:controller.signal})}finally{clearTimeout(timeout)}
-const data=await response.json();if(!response.ok||!data.ok)throw Error(data.message||"Error HTTP "+response.status);
-render(data);$("status").textContent="Actualización completada.";
-}catch(error){$("status").textContent="No se pudo actualizar: "+(error.name==="AbortError"?"Tiempo de espera agotado.":error.message)}
-finally{$("refresh").disabled=false}
+  if(!user||!db)return;
+  $("refresh").disabled=true;message("Consultando workers...");
+  try{
+    // Esta es la única lectura Firestore y SOLO ocurre al pulsar el botón.
+    const snapshot=await getDocsFromServer(query(collection(db,"salesforce_bridge_workers"),orderBy("lastSeenMs","desc"),limit(100)));
+    const now=Date.now();
+    const workers=snapshot.docs.map(doc=>{
+      const d=doc.data()||{},seen=Number(d.lastSeenMs)||0;
+      return {id:doc.id,workerName:String(d.workerName||"").slice(0,80),version:String(d.version||"").slice(0,30),
+        lastSeenMs:seen,ready:Boolean(d.salesforceReady),online:seen>0&&now>=seen-60000&&now-seen<=180000};
+    });
+    render(workers,now);message("Actualización completada. No se harán nuevas lecturas hasta que pulses Actualizar.");
+  }catch(err){
+    message(err.code==="permission-denied"?"Acceso denegado por Firestore. Revisá las reglas y el UID autorizado.":("No se pudo consultar Firestore: "+(err.message||"Error")));
+  }finally{$("refresh").disabled=!user}
 });
 </script></body></html>
