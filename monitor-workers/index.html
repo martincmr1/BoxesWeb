@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>YPF Boxes · Monitor de Workers</title>
+<style>
+:root{font-family:Arial,sans-serif;color:#17213a;background:#eef2f7}*{box-sizing:border-box}body{margin:0}
+header{background:#101665;color:white;padding:24px max(20px,calc((100vw - 1100px)/2))}
+header h1{margin:5px 0;font-size:27px}header p{color:#d1dbff;margin:0}
+main{max-width:1100px;margin:24px auto;padding:0 16px}
+.card{background:white;border:1px solid #d9e0ec;border-radius:16px;padding:20px;margin-bottom:16px}
+.toolbar{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap}
+label{display:block;font-size:12px;font-weight:bold;color:#69788f;margin-bottom:6px}
+input{border:1px solid #cad5e5;border-radius:9px;padding:12px;width:100%;font:inherit}
+.field{flex:1;min-width:220px}.field.small{max-width:250px}
+button{background:#0451e4;border:0;color:white;border-radius:10px;padding:13px 21px;font-weight:bold;cursor:pointer}
+button:disabled{opacity:.5;cursor:wait}.muted{color:#708098;font-size:13px}
+.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px;margin-bottom:16px}
+.metric{border:1px solid #e0e6f1;background:white;padding:17px;border-radius:14px}
+.metric span{display:block;font-size:12px;color:#63738a}.metric strong{display:block;font-size:30px;margin-top:6px}
+table{width:100%;border-collapse:collapse;text-align:left}th,td{padding:13px;border-bottom:1px solid #e6eaf0;font-size:13px}th{color:#69788f}
+.tablewrap{overflow:auto}.pill{display:inline-block;border-radius:20px;background:#edf1f7;color:#59657a;padding:5px 10px;font-weight:bold;white-space:nowrap}
+.pill.good{background:#def7e8;color:#11663a}.pill.bad{background:#fff0de;color:#8a5011}
+.pill.off{background:#e9ecf0;color:#4a5568}
+.note{border-left:3px solid #0451e4;padding:8px 12px;background:#edf3ff;font-size:13px}
+#status[role=alert]{color:#ad2c2c}
+@media(max-width:600px){header{padding:20px}header h1{font-size:23px}th,td{padding:10px 8px}}
+</style></head><body>
+<header><div style="font-weight:900;letter-spacing:2px">YPF BOXES</div><h1>Monitor de Workers</h1><p>Estado manual · Sin actualizaciones automáticas</p></header>
+<main>
+<section class="card">
+<div class="toolbar">
+<div class="field"><label for="endpoint">Dirección API del monitor</label><input id="endpoint" type="url" placeholder="https://tu-dominio.com.ar/api/monitor/workers" autocomplete="off" spellcheck="false"></div>
+<div class="field small"><label for="credential">Clave de acceso del monitor</label><input id="credential" type="password" placeholder="Clave exclusiva del monitor" autocomplete="off"></div>
+<button id="refresh" type="button">↻ Actualizar</button>
+</div>
+<p class="muted">La página no hace solicitudes hasta que presionás Actualizar. La clave no se guarda en el navegador.</p>
+<p id="status" role="alert" aria-live="polite">Sin datos. Configurá la API de monitoreo y presioná Actualizar.</p>
+</section>
+<div class="summary" id="metrics"></div>
+<section class="card"><h2>Trabajadores</h2><p id="last" class="muted">Todavía no se actualizó.</p>
+<div class="tablewrap"><table><thead><tr><th>Nombre</th><th>Versión</th><th>Estado</th><th>Último contacto</th></tr></thead><tbody id="workers"><tr><td colspan="4">Sin datos</td></tr></tbody></table></div></section>
+<section class="card"><h2>Actividad reciente</h2><p class="note">Los indicadores de solicitudes muestran únicamente la muestra de las últimas 40 consultas, no los totales históricos.</p>
+<div class="summary" id="activity"></div>
+<div class="tablewrap"><table><thead><tr><th>Estado</th><th>Fecha</th><th>Worker</th><th>Intentos</th></tr></thead><tbody id="requests"><tr><td colspan="4">Sin datos</td></tr></tbody></table></div></section>
+</main>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const make=(tag,value)=>{const e=document.createElement(tag);e.textContent=String(value??"—");return e};
+const datetime=ms=>ms?new Date(ms).toLocaleString("es-AR"):"—";
+const ago=(ms,ref)=>ms?Math.max(0,Math.round((ref-ms)/1000))+" s":"—";
+const metrics=(where,entries)=>{const el=$(where);el.replaceChildren();for(const [label,value] of entries){const card=document.createElement("div");card.className="metric";card.append(make("span",label),make("strong",value));el.append(card)}};
+function state(worker){return !worker.online?["Desconectado","off"]:worker.salesforceReady?["Disponible","good"]:["Sin sesión","bad"]}
+function cell(tr,value){tr.append(make("td",value))}
+function render(d){
+const summary=d.summary||{}, now=Number(d.updatedAtMs)||Date.now();
+metrics("metrics",[["Workers registrados",summary.totalWorkers??0],["Conectados",summary.online??0],["Disponibles",summary.ready??0],["Sin sesión",summary.onlineNoSession??0],["Desconectados",summary.offline??0]]);
+metrics("activity",[["Pendientes",summary.recentPending??0],["Procesando",summary.recentProcessing??0],["Completadas",summary.recentDone??0],["Errores",summary.recentError??0]]);
+$("last").textContent="Última actualización manual: "+datetime(now)+" · Online: contacto en los últimos "+(d.onlineWindowSeconds||180)+" segundos";
+const workers=$("workers");workers.replaceChildren();for(const w of d.workers||[]){const tr=document.createElement("tr");cell(tr,w.workerName||w.workerId);cell(tr,w.version||"—");const td=document.createElement("td"),p=make("span",state(w)[0]);p.className="pill "+state(w)[1];td.append(p);tr.append(td);cell(tr,ago(w.lastSeenMs,now));workers.append(tr)}if(!workers.children.length){const tr=document.createElement("tr");const td=make("td","No se encontraron workers");td.colSpan=4;tr.append(td);workers.append(tr)}
+const requests=$("requests");requests.replaceChildren();for(const r of d.recentRequests||[]){const tr=document.createElement("tr");cell(tr,r.status);cell(tr,datetime(r.createdAtMs));cell(tr,r.claimedBy||"—");cell(tr,r.attempts??0);requests.append(tr)}if(!requests.children.length){const tr=document.createElement("tr");const td=make("td","Sin solicitudes recientes");td.colSpan=4;tr.append(td);requests.append(tr)}
+}
+$("refresh").addEventListener("click",async()=>{
+const url=$("endpoint").value.trim(),secret=$("credential").value;
+if(!url||!secret){$("status").textContent="Ingresá la URL de la API y la clave.";return}
+let parsed;
+try{parsed=new URL(url);if(parsed.protocol!=="https:"||parsed.username||parsed.password||parsed.search||parsed.hash||parsed.pathname!=="/api/monitor/workers")throw Error()}catch{$("status").textContent="Usá una URL HTTPS terminada en /api/monitor/workers.";return}
+$("refresh").disabled=true;$("status").textContent="Consultando estado...";
+try{const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),15000);
+let response;try{response=await fetch(parsed.href,{headers:{Authorization:"Bearer "+secret},cache:"no-store",signal:controller.signal})}finally{clearTimeout(timeout)}
+const data=await response.json();if(!response.ok||!data.ok)throw Error(data.message||"Error HTTP "+response.status);
+render(data);$("status").textContent="Actualización completada.";
+}catch(error){$("status").textContent="No se pudo actualizar: "+(error.name==="AbortError"?"Tiempo de espera agotado.":error.message)}
+finally{$("refresh").disabled=false}
+});
+</script></body></html>
